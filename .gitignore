@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.env
+.vitest/
+coverage/
+.DS_Store
+*.log
+AGENTS.md
+TODO.md
+CHANGELOG.md

@@ -1,0 +1,4276 @@
+{
+  "info": {
+    "_postman_id": "d6a511fd-b29d-49bf-b77b-96c7230cc0a6",
+    "name": "Affinity API v1",
+    "description": "Welcome to the Affinity API! This API provides a RESTful interface for performing operations on the different objects that make up Affinity. If you are trying to accomplish an action through this API and are not sure on what endpoints to use, or if you have ideas on more endpoints we could create to make your workflow easier, please do not hesitate to contact us at . The base URL for all requests is `https://api.affinity.co/`. The Affinity API developer portal can be accessed at [https://api-docs.affinity.com](https://api-docs.affinity.com). For those interested in understanding the differences between Affinity API v1 and v2, please refer to the [differences between the Affinity API v1 and v2](https://support.affinity.co/s/article/Getting-started-with-the-Affinity-API-FAQs#h_01HKRBTA0ZF73GK0GY8ZW1WYNB).\n\n# Security\n\nThe Affinity API is secured using HTTP Basic Authentication. You will need to generate an API secret key, which acts as the password in the authentication process. No username is required. To obtain your API key, access the Settings Panel via the left sidebar on the Affinity web app. For further assistance, visit the [How to obtain your API Key](https://support.affinity.co/hc/en-us/articles/360032633992-How-to-obtain-your-API-Key) article.\n\nBefore making any API calls, ensure you have generated your API key from the Affinity web app. This key must be included in every request to authenticate successfully. Without it, you will receive a `401 Unauthorized` error.\n\n# How to use this collection\n\nTo use this Postman collection, you need to set up environment variables in Postman. Define the following variable:\n\n| Name   | Description |\n|--------|-------------|\n| apikey | Your API key obtained from the Affinity web app. |\n\nIt is recommended to store sensitive information such as API keys in the Postman vault instead of environment variables. Refer to the [Postman Vault documentation](https://learning.postman.com/docs/sending-requests/postman-vault/postman-vault-secrets/) for more details.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "36457080"
+  },
+  "item": [
+    {
+      "name": "Entity Files",
+      "item": [
+        {
+          "name": "Retrieve all entity files",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.affinity.co/entity-files",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "entity-files"
+              ]
+            },
+            "description": "The `GET /entity-files` operation returns all entity files within your organization and supports pagination. This endpoint is part of the Affinity API v1, which allows you to manage various resources related to your organization's data.\n\n## Response Body\n\n| Name | Type | Description |\n|------|------|-------------|\n| entity_files | array | An array of entity file resources. |\n| entity_files.id | integer | The unique identifier of the entity file object. |\n| entity_files.name | string | The name of the file. |\n| entity_files.size | string | The size of the file in bytes. |\n| entity_files.person_id | integer | The unique identifier of the person corresponding to the entity file. |\n| entity_files.organization_id | integer | The unique identifier of the organization corresponding to the entity file. |\n| entity_files.opportunity_id | integer | The unique identifier of the opportunity corresponding to the entity file. |\n| entity_files.uploader_id | integer | The unique identifier of the user who created the entity file. |\n| entity_files.created_at | datetime | The time when the entity file was created. |\n| next_page_token | string | Token to retrieve the next page of results. |"
+          },
+          "response": [
+            {
+              "name": "Retrieve all entity files",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.affinity.co/entity-files",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "entity-files"
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"entity_files\": [\n    {\n      \"id\": 43212,\n      \"name\": \"JohnDoeFriends.csv\",\n      \"size\": 993,\n      \"person_id\": 142,\n      \"organization_id\": null,\n      \"opportunity_id\": null,\n      \"created_at\": \"2011-01-25T09:59:35.288-08:00\",\n      \"uploader_id\": 10\n    },\n    {\n      \"id\": 131,\n      \"name\": \"Import.csv\",\n      \"size\": 227224,\n      \"person_id\": 38654,\n      \"organization_id\": null,\n      \"opportunity_id\": null,\n      \"created_at\": \"2019-01-13T12:52:51.539-08:00\",\n      \"uploader_id\": 101\n    }\n  ],\n  \"next_page_token\": \"eyJwYXJhbXMiOnt9LCJwYWdlX3NpemUiOjUwMCwib2Zmc2V0Ijo1MDB9\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Upload Entity Files",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "description": "A singular file to be uploaded, formatted as form data (multipart/form-data).",
+                  "value": null
+                },
+                {
+                  "key": "files",
+                  "type": "file",
+                  "description": "An array of files to be uploaded, formatted as form data (multipart/form-data).",
+                  "value": null
+                },
+                {
+                  "key": "person_id",
+                  "value": "1",
+                  "type": "text",
+                  "description": "The unique identifier of the person object to attach the file(s) to."
+                },
+                {
+                  "key": "organization_id",
+                  "type": "text",
+                  "description": "The unique identifier of the organization object to attach the file(s) to."
+                },
+                {
+                  "key": "opportunity_id",
+                  "type": "text",
+                  "description": "The unique identifier of the opportunity object to attach the file(s) to."
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://api.affinity.co/entity-files",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "entity-files"
+              ]
+            },
+            "description": "The `POST /entity-files` operation uploads files attached to an entity with the given ID. This allows you to associate files, such as documents or images, with specific entities like persons, organizations, or opportunities within the Affinity platform. The uploaded files will be displayed on the entity's profile unless the entity is a person internal to your organization.\n\n## Request Body\n\n| Name              | Type   | Required | Description                                                                 |\n|-------------------|--------|----------|-----------------------------------------------------------------------------|\n| file              | File   |          | A singular file to be uploaded, formatted as form data (multipart/form-data).|\n| files             | File[] |          | An array of files to be uploaded, formatted as form data (multipart/form-data).|\n| person_id         | integer|          | The unique identifier of the person object to attach the file(s) to.        |\n| organization_id   | integer|          | The unique identifier of the organization object to attach the file(s) to.  |\n| opportunity_id    | integer|          | The unique identifier of the opportunity object to attach the file(s) to.   |\n\nFiles must be attached to a single entity, specified using one of the three entity ID parameters (`person_id`, `organization_id`, and `opportunity_id`). At least one file must be uploaded using the `file` or `files` parameters.\n\n## Response Body\n\n| Name    | Type    | Description                              |\n|---------|---------|------------------------------------------|\n| success | boolean | Indicates if the operation was successful.|"
+          },
+          "response": [
+            {
+              "name": "Single File Upload",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "multipart/form-data"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "file",
+                      "type": "file",
+                      "src": [
+                        "file.txt"
+                      ]
+                    },
+                    {
+                      "key": "person_id",
+                      "value": "1",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "https://api.affinity.co/entity-files",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "entity-files"
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{ \"success\": true }"
+            },
+            {
+              "name": "Multi File Upload",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "multipart/form-data"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "files[]",
+                      "type": "file",
+                      "src": [
+                        "file1.txt"
+                      ]
+                    },
+                    {
+                      "key": "files[]",
+                      "type": "file",
+                      "src": [
+                        "file2.txt"
+                      ]
+                    },
+                    {
+                      "key": "person_id",
+                      "value": "1",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "https://api.affinity.co/entity-files",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "entity-files"
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{ \"success\": true }"
+            }
+          ]
+        },
+        {
+          "name": "Retrieve an Entity File by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "https://api.affinity.co/entity-files/:entity_file_id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "entity-files",
+                ":entity_file_id"
+              ],
+              "variable": [
+                {
+                  "key": "entity_file_id",
+                  "value": "{{entity_file_id}}",
+                  "description": "The unique ID of the entity file that needs to be retrieved."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Retrieve an Entity File",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "https://api.affinity.co/entity-files/:entity_file_id",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "entity-files",
+                    ":entity_file_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "entity_file_id",
+                      "value": "{{entity_file_id}}",
+                      "description": "The unique ID of the entity file that needs to be retrieved."
+                    }
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"id\": 43212,\n  \"name\": \"GoogleFriends.csv\",\n  \"size\": 993,\n  \"person_id\": null,\n  \"organization_id\": 10,\n  \"opportunity_id\": null,\n  \"created_at\": \"2011-01-25T09:59:35.288-08:00\",\n  \"uploader_id\": 10\n}"
+            }
+          ]
+        },
+        {
+          "name": "Download an entity file by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/octet-stream",
+                "description": "Indicates the media type of the resource."
+              }
+            ],
+            "url": {
+              "raw": "https://api.affinity.co/entity-files/download/:entity_file_id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "entity-files",
+                "download",
+                ":entity_file_id"
+              ],
+              "variable": [
+                {
+                  "key": "entity_file_id",
+                  "value": "{{entity_file_id}}",
+                  "description": "The unique ID of the entity file that needs to be downloaded."
+                }
+              ]
+            },
+            "description": "The API operation `GET /entity-files/download/{entity_file_id}` downloads an entity file with a specified `entity_file_id`. This endpoint is part of the Affinity API v1, which allows you to manage and interact with various resources such as entity files. For more information on the differences between Affinity API v1 and v2, visit [this link](https://support.affinity.co/s/article/Getting-started-with-the-Affinity-API-FAQs#h_01HKRBTA0ZF73GK0GY8ZW1WYNB). You can also refer to the [Affinity API v1 documentation](https://api-docs.affinity.com/v1/) for further details."
+          },
+          "response": [
+            {
+              "name": "Downloading an Entity File",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.affinity.co/entity-files/download/:entity_file_id",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "entity-files",
+                    "download",
+                    ":entity_file_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "entity_file_id",
+                      "value": "12345"
+                    }
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/octet-stream"
+                },
+                {
+                  "key": "Content-Disposition",
+                  "value": "attachment; filename=\"file.png\""
+                }
+              ],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Field Values",
+      "item": [
+        {
+          "name": "Create a new field value",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"field_id\": 1234,\n  \"entity_id\": 5678,\n  \"value\": {\n    \"text\": \"Sample Value\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api.affinity.co/field-values",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "field-values"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Creating a New Field Value",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"field_id\": 1234,\n  \"entity_id\": 5678,\n  \"value\": {\n    \"text\": \"Sample Value\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://api.affinity.co/field-values",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "field-values"
+                  ]
+                }
+              },
+              "status": "201 Created",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": 9876,\n  \"field_id\": 1234,\n  \"entity_id\": 5678,\n  \"list_entry_id\": null,\n  \"value\": {\n    \"text\": \"Sample Value\"\n  },\n  \"created_at\": \"2023-10-04T08:54:24.694-04:00\",\n  \"updated_at\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update a Field Value",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"value\": \"Healthcare\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api.affinity.co/field-values/:field_value_id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "field-values",
+                ":field_value_id"
+              ],
+              "variable": [
+                {
+                  "key": "field_value_id",
+                  "value": "{{field_value_id}}",
+                  "description": "The unique identifier of the field value to update."
+                }
+              ]
+            },
+            "description": "The API operation `PUT /field-values/{field_value_id}` updates the existing field value with the specified `field_value_id` using the supplied parameters. This operation is part of the Affinity API v1, which allows you to manage and interact with your data in Affinity.\n\n## Request Body\n\n| Name | Type | Required | Description |\n|------|------|----------|-------------|\n| value | custom | true | See the [Field Value Resource](#the-field-value-resource) section for all value types. The value specified must correspond to the `value_type` of the supplied `field`. For ranked dropdown fields like the default Status field, you must supply the ID of a dropdown option rather than a string value. These IDs can be found using the `GET /fields` endpoint. |"
+          },
+          "response": [
+            {
+              "name": "Update a Field Value",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"value\": \"Healthcare\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://api.affinity.co/field-values/:field_value_id",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "field-values",
+                    ":field_value_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "field_value_id",
+                      "value": "{{field_value_id}}",
+                      "description": "The unique identifier of the field value to update."
+                    }
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 20406836,\n    \"field_id\": 1284,\n    \"list_entry_id\": null,\n    \"entity_id\": 38706,\n    \"created_at\": \"2022-10-04T10:37:19.418-04:00\",\n    \"updated_at\": \"2023-02-06T11:53:08.914-05:00\",\n    \"value\": \"Healthcare\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete a field value by ID",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://api.affinity.co/field-values/:field_value_id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "field-values",
+                ":field_value_id"
+              ],
+              "variable": [
+                {
+                  "key": "field_value_id",
+                  "value": "{{field_value_id}}",
+                  "description": "The unique identifier of the field value to delete."
+                }
+              ]
+            },
+            "description": "The `DELETE /field-values/{field_value_id}` operation deletes a field value with the specified `field_value_id`. This operation is part of the Affinity API v1, which allows you to manage your data within the Affinity platform. For more information on the differences between Affinity API v1 and v2, please refer to [this link](https://support.affinity.co/s/article/Getting-started-with-the-Affinity-API-FAQs#h_01HKRBTA0ZF73GK0GY8ZW1WYNB). You can also find the full Affinity API v1 documentation [here](https://api-docs.affinity.com/v1/)."
+          },
+          "response": [
+            {
+              "name": "Deleting a Field Value",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "https://api.affinity.co/field-values/:field_value_id",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "field-values",
+                    ":field_value_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "field_value_id",
+                      "value": "{{field_value_id}}",
+                      "description": "The unique identifier of the field value to delete."
+                    }
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{ \"success\": true }"
+            }
+          ]
+        },
+        {
+          "name": "Retrieve Field Values by Entity ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "https://api.affinity.co/field-values?entity_id={{entity_id}}",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "field-values"
+              ],
+              "query": [
+                {
+                  "key": "entity_id",
+                  "value": "{{entity_id}}",
+                  "description": "The ID of the entity for which to retrieve field values."
+                }
+              ],
+              "variable": [
+                {
+                  "key": "entity_id",
+                  "value": "{{entity_id}}",
+                  "description": "The ID of the entity for which to retrieve field values."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Retrieve Field Values for an Entity",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.affinity.co/field-values?entity_id=7133202",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "field-values"
+                  ],
+                  "query": [
+                    {
+                      "key": "entity_id",
+                      "value": "7133202"
+                    }
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n  {\n    \"id\": 2448594830,\n    \"field_id\": 61223,\n    \"list_entry_id\": 37605676,\n    \"entity_type\": 0,\n    \"value_type\": 3,\n    \"entity_id\": 7133202,\n    \"value\": 5000.0\n  }\n]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Field Values Changes",
+      "item": [
+        {
+          "name": "Retrieve Field Value Changes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.affinity.co/field-value-changes?field_id=:field_id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "field-value-changes"
+              ],
+              "query": [
+                {
+                  "key": "field_id",
+                  "value": ":field_id",
+                  "description": "A unique ID representing a field object whose field value changes are to be retrieved."
+                },
+                {
+                  "key": "action_type",
+                  "value": "",
+                  "description": "Filters field value changes by the specified action type (0 for Create, 1 for Delete, 2 for Update).",
+                  "disabled": true
+                },
+                {
+                  "key": "person_id",
+                  "value": "",
+                  "description": "A unique ID representing a person object whose field value changes are to be retrieved.",
+                  "disabled": true
+                },
+                {
+                  "key": "organization_id",
+                  "value": "",
+                  "description": "A unique ID representing an organization object whose field value changes are to be retrieved.",
+                  "disabled": true
+                },
+                {
+                  "key": "opportunity_id",
+                  "value": "",
+                  "description": "A unique ID representing an opportunity object whose field value changes are to be retrieved.",
+                  "disabled": true
+                },
+                {
+                  "key": "list_entry_id",
+                  "value": "",
+                  "description": "A unique ID representing a list entry object whose field value changes are to be retrieved.",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "The `GET /field-value-changes` operation returns all field value changes attached to a specific field. You can filter these changes by `action_type`, `person`, `organization`, `opportunity`, or `list_entry` by passing in the appropriate parameter. This endpoint is useful for tracking modifications made to field values over time, allowing you to audit changes and understand the history of data within your system.\n\n## Response Body\n\n| Name | Type | Description |\n|-------------------------|----------|-----------------------------------------------------------------------------|\n| id | integer | The unique identifier of the field value change. |\n| field_id | integer | The ID of the field associated with the change. |\n| entity_id | integer | The ID of the entity associated with the change. |\n| list_entry_id | integer | The ID of the list entry associated with the change. |\n| action_type | integer | The type of action performed (0 for Create, 1 for Delete, 2 for Update). |\n| changer.id | integer | The ID of the user who made the change. |\n| changer.type | integer | The type of user (internal or external). |\n| changer.first_name | string | The first name of the user who made the change. |\n| changer.last_name | string | The last name of the user who made the change. |\n| changer.primary_email | string | The primary email of the user who made the change. |\n| changer.emails | string[] | The email addresses of the user who made the change. |\n| changed_at | string | The timestamp when the change was made. |\n| value.id | integer | The ID of the new value after the change. |\n| value.text | string | The text representation of the new value. |\n| value.rank | integer | The rank of the new value. |\n| value.color | integer | The color code associated with the new value. |"
+          },
+          "response": []
+        },
+        {
+          "name": "Retrieve Field Value Changes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.affinity.co/field-values-changes",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "field-values-changes"
+              ]
+            },
+            "description": "The `GET /field-values-changes` operation is used to query changes in field values by passing in the ID from the status field. This operation allows you to track modifications made to specific fields over time, providing insights into how data has evolved."
+          },
+          "response": [
+            {
+              "name": "Retrieve Field Value Changes",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.affinity.co/field-values-changes",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "field-values-changes"
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n  {\n    \"id\": 7,\n    \"entity_attribute_id\": 106,\n    \"changer\": {\n      \"id\": 2,\n      \"type\": 1,\n      \"first_name\": \"Contact\",\n      \"last_name\": \"Example\",\n      \"primary_email\": \"redacted@example.com\",\n      \"emails\": [\n        \"redacted@example.com\"\n      ]\n    },\n    \"changed_at\": \"2021-09-17T10:43:12.781-04:00\",\n    \"action_type\": 2,\n    \"list_entry_id\": 15709964,\n    \"person\": {\n      \"id\": 2,\n      \"type\": 1,\n      \"first_name\": \"Person\",\n      \"last_name\": \"Example\",\n      \"primary_email\": \"redacted@example.com\",\n      \"emails\": [\n        \"redacted@example.com\"\n      ]\n    },\n    \"company\": null,\n    \"opp\": null,\n    \"value\": {\n      \"id\": 30,\n      \"text\": \"In Progress\",\n      \"rank\": 1,\n      \"color\": 3\n    },\n    \"entity_id\": 38706,\n    \"field_id\": 61223\n  }\n]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Fields",
+      "item": [
+        {
+          "name": "Retrieve all fields",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.affinity.co/fields",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "fields"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Retrieve all fields",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.affinity.co/fields",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "fields"
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n  {\n    \"id\": 1234,\n    \"name\": \"[Deals] Amount\",\n    \"list_id\": 11,\n    \"enrichment_source\": \"none\",\n    \"value_type\": 3,\n    \"allows_multiple\": false,\n    \"track_changes\": true,\n    \"dropdown_options\": []\n  },\n  {\n    \"id\": 5678,\n    \"name\": \"[Events] Amount\",\n    \"list_id\": 16,\n    \"enrichment_source\": \"none\",\n    \"value_type\": 3,\n    \"allows_multiple\": false,\n    \"track_changes\": true,\n    \"dropdown_options\": []\n  },\n  {\n    \"id\": 4321,\n    \"name\": \"[Companies] Description\",\n    \"list_id\": 18,\n    \"enrichment_source\": \"dealroom\",\n    \"value_type\": 6,\n    \"allows_multiple\": false,\n    \"track_changes\": false,\n    \"dropdown_options\": []\n  }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Create a new field",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"[Deals] Amount\",\n  \"list_id\": 11,\n  \"entity_type\": 1,\n  \"value_type\": 3,\n  \"allows_multiple\": false,\n  \"is_list_specific\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api.affinity.co/fields",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "fields"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Creating a New Field",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"[Deals] Amount\",\n  \"list_id\": 11,\n  \"entity_type\": 1,\n  \"value_type\": 3,\n  \"allows_multiple\": false,\n  \"is_list_specific\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://api.affinity.co/fields",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "fields"
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": 59,\n  \"name\": \"[Deals] Amount\",\n  \"list_id\": 11,\n  \"enrichment_source\": \"none\",\n  \"value_type\": 3,\n  \"allows_multiple\": false,\n  \"track_changes\": false,\n  \"dropdown_options\": []\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete a field by ID",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://api.affinity.co/fields/:id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "fields",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{id}}",
+                  "description": "The unique ID of the field that needs to be deleted."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Deleting a Field",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "https://api.affinity.co/fields/:id",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "fields",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "{{id}}",
+                      "description": "The unique ID of the field that needs to be deleted."
+                    }
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{ \"success\": true }"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Interactions",
+      "item": [
+        {
+          "name": "Create a new interaction",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"person_ids\": [443, 2021],\n  \"type\": 0,\n  \"date\": \"2021-02-07T10:56:29.546-08:00\",\n  \"content\": \"Create interaction from external API.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api.affinity.co/interactions",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "interactions"
+              ]
+            },
+            "description": "The `POST /interactions` operation creates a new interaction with the supplied parameters. This operation is part of the Affinity API v1, which allows you to manage interactions within your CRM system.\n\n## Request Body\n\n| Name                  | Type     | Required | Description                                                        |\n|-----------------------|----------|----------|--------------------------------------------------------------------|\n| type                  | integer  | Yes      | The type of interaction (e.g., Meeting, Call, Chat message, Email).|\n| date                  | datetime | Yes      | The date and time when the interaction occurs.                     |\n| manual_creator_id     | integer  | No       | The unique identifier of the person who manually created the interaction.|\n| persons               | array    | Yes      | A list of persons involved in the interaction.                     |\n| persons.id            | integer  | Yes      | The unique identifier of the person.                               |\n| persons.type          | integer  | Yes      | The type of person (internal or external).                         |\n| persons.first_name    | string   | Yes      | The first name of the person.                                      |\n| persons.last_name     | string   | Yes      | The last name of the person.                                       |\n| persons.primary_email | string   | Yes      | The primary email address of the person.                           |\n| notes                 | array    | No       | A list of note IDs associated with the interaction.                |\n\n## Response Body\n\n| Name                  | Type     | Required | Description                                                        |\n|-----------------------|----------|----------|--------------------------------------------------------------------|\n| date                  | datetime |          | The date and time when the interaction was created.                |\n| id                    | integer  |          | The unique identifier of the created interaction.                  |\n| attendees             | array    |          | List of email addresses of the attendees.                          |\n| start_time            | datetime |          | The start time of the interaction.                                 |\n| end_time              | datetime |          | The end time of the interaction, if available.                     |\n| updated_at            | datetime |          | The timestamp when the interaction was last updated.               |\n| manual_creator_id     | integer  |          | The ID of the person who manually created the interaction.         |\n| title                 | string   |          | The title of the interaction.                                      |\n| type                  | integer  |          | The type of interaction.                                           |\n| notes                 | array    |          | List of note IDs associated with the interaction.                  |\n| persons               | array    |          | Details of persons involved in the interaction.                    |\n| persons.id            | integer  |          | The unique identifier of the person.                               |\n| persons.type          | integer  |          | The type of person (internal or external).                         |\n| persons.first_name    | string   |          | The first name of the person.                                      |\n| persons.last_name     | string   |          | The last name of the person.                                       |\n| persons.primary_email | string   |          | The primary email address of the person.                           |\n| persons.emails        | array    |          | List of email addresses of the person.                             |\n"
+          },
+          "response": [
+            {
+              "name": "Untitled Response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"person_ids\": [443, 2021],\n  \"type\": 0,\n  \"date\": \"2021-02-07T10:56:29.546-08:00\",\n  \"content\": \"Create interaction from external API.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://api.affinity.co/interactions",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "interactions"
+                  ]
+                }
+              },
+              "status": "201 Created",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"date\": \"2021-02-07T10:56:29.546-08:00\",\n  \"id\": 3007,\n  \"attendees\": [\"redacted@example.com\", \"redacted@example.com\"],\n  \"start_time\": \"2021-02-07T10:56:29.546-08:00\",\n  \"end_time\": null,\n  \"updated_at\": null,\n  \"manual_creator_id\": 443,\n  \"title\": \"Manually logged event\",\n  \"type\": 0,\n  \"notes\": [7],\n  \"persons\": [\n    {\n      \"id\": 443,\n      \"type\": 1,\n      \"first_name\": \"Person\",\n      \"last_name\": \"Example\",\n      \"primary_email\": \"redacted@example.com\",\n      \"emails\": [\"redacted@example.com\"]\n    },\n    {\n      \"id\": 2021,\n      \"type\": 0,\n      \"first_name\": \"Contact\",\n      \"last_name\": \"Member\",\n      \"primary_email\": \"redacted@example.com\",\n      \"emails\": [\"redacted@example.com\"]\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Retrieve a specific interaction by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.affinity.co/interactions/:id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "interactions",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{id}}",
+                  "description": "The identifier of the interaction object to be retrieved."
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update an interaction",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": 0,\n  \"date\": \"2022-02-07T10:56:29.546-08:00\",\n  \"content\": \"Update interaction from external API.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api.affinity.co/interactions/:id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "interactions",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{id}}",
+                  "description": "The identifier of the interaction object to be updated."
+                }
+              ]
+            },
+            "description": "The `PUT /interactions/{id}` operation updates the content of an existing interaction with the supplied parameters. This operation is part of the Affinity API v1, which allows you to manage interactions within your CRM system.\n\n## Request Body\n\n| Name         | Type      | Required | Description                                                  |\n|--------------|-----------|----------|--------------------------------------------------------------|\n| type         | integer   | true     | The type of interaction to be updated.                       |\n| person_ids   | integer[] | true     | The list of person IDs that are associated with the event.   |\n| content      | string    | false    | The string containing the content of the interaction.        |\n| date         | string    | false    | A string (formatted according to ISO 8601) representing the date time the interaction occurred. |\n\n## Response Body\n\n| Name                | Type       | Description                                                   |\n|---------------------|------------|---------------------------------------------------------------|\n| date                | string     | The date and time when the interaction occurred.              |\n| id                  | integer    | The unique identifier of the interaction.                     |\n| attendees           | string[]   | List of email addresses of the attendees.                     |\n| start_time          | string     | The start time of the interaction.                            |\n| end_time            | string     | The end time of the interaction, if applicable.               |\n| updated_at          | string     | The timestamp when the interaction was last updated.          |\n| manual_creator_id   | integer    | The ID of the user who manually created the interaction.      |\n| title               | string     | The title of the interaction.                                 |\n| type                | integer    | The type of interaction.                                      |\n| notes               | integer[]  | List of note IDs associated with the interaction.             |\n| persons             | object[]   | List of persons involved in the interaction.                  |\n"
+          },
+          "response": [
+            {
+              "name": "Update an existing interaction",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": 0,\n  \"date\": \"2022-02-07T10:56:29.546-08:00\",\n  \"content\": \"Update interaction from external API.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://api.affinity.co/interactions/:id",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "interactions",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "{{id}}"
+                    }
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"date\": \"2022-02-07T10:56:29.546-08:00\",\n  \"id\": 3007,\n  \"attendees\": [\"redacted@example.com\", \"redacted@example.com\"],\n  \"start_time\": \"2022-02-07T10:56:29.546-08:00\",\n  \"end_time\": null,\n  \"updated_at\": null,\n  \"manual_creator_id\": 443,\n  \"title\": \"Manually logged event\",\n  \"type\": 0,\n  \"notes\": [7],\n  \"persons\": [\n    {\n      \"id\": 443,\n      \"type\": 1,\n      \"first_name\": \"Person\",\n      \"last_name\": \"Example\",\n      \"primary_email\": \"redacted@example.com\",\n      \"emails\": [\"redacted@example.com\"]\n    },\n    {\n      \"id\": 2021,\n      \"type\": 0,\n      \"first_name\": \"Contact\",\n      \"last_name\": \"Member\",\n      \"primary_email\": \"redacted@example.com\",\n      \"emails\": [\"redacted@example.com\"]\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete an interaction by ID",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://api.affinity.co/interactions/:id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "interactions",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "{{id}}",
+                  "description": "The identifier of the interaction to delete."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Deleting an Interaction",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "https://api.affinity.co/interactions/:id",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "interactions",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "{{id}}",
+                      "description": "The identifier of the interaction to delete."
+                    }
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\"success\": true}"
+            }
+          ]
+        },
+        {
+          "name": "Retrieve all interactions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.affinity.co/interactions?organization_id=:organization_id&type=:type&start_time=:start_time&end_time=:end_time",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "interactions"
+              ],
+              "query": [
+                {
+                  "key": "organization_id",
+                  "value": ":organization_id",
+                  "description": "A unique identifier representing an Organization involved in the interactions."
+                },
+                {
+                  "key": "type",
+                  "value": ":type",
+                  "description": "The type of interactions to be retrieved."
+                },
+                {
+                  "key": "start_time",
+                  "value": ":start_time",
+                  "description": "ISO 8601 formatted string representing the start of the time range for the interactions."
+                },
+                {
+                  "key": "end_time",
+                  "value": ":end_time",
+                  "description": "ISO 8601 formatted string representing the end of the time range for the interactions."
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Lists",
+      "item": [
+        {
+          "name": "Retrieve all lists",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.affinity.co/lists",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "lists"
+              ]
+            },
+            "description": "The `GET /lists` operation is used to retrieve all lists available in the Affinity system. You can filter results by list name to obtain the appropriate list ID. This operation is part of the Affinity API v1, which provides various functionalities for managing and interacting with lists, people, organizations, and opportunities within the Affinity platform.\n\n## Response Body\n\n| Name       | Type    | Description                                                |\n|------------|---------|------------------------------------------------------------|\n| id         | Integer | Unique identifier for the list.                           |\n| type       | Integer | Type of the list (e.g., 0 for standard lists).            |\n| name       | String  | Name of the list.                                         |\n| public     | Boolean | Indicates whether the list is public.                     |\n| owner_id   | Integer | Identifier of the user who owns the list.                 |\n| list_size  | Integer | Number of entries in the list.                            |"
+          },
+          "response": [
+            {
+              "name": "Retrieve all lists",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.affinity.co/lists",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "lists"
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n  {\n    \"id\": 12058,\n    \"type\": 0,\n    \"name\": \"Current Prospects\",\n    \"public\": true,\n    \"owner_id\": 477400,\n    \"list_size\": 150\n  }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Create a new list",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"My List of People\",\n    \"type\": 0,\n    \"public\": true,\n    \"owner_id\": 38706,\n    \"additional_permissions\": [\n        {\n            \"internal_person_id\": 38706,\n            \"role_id\": 0\n        }\n    ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api.affinity.co/lists",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "lists"
+              ]
+            },
+            "description": "The `POST /lists` operation creates a new list with the supplied parameters. This operation is part of the Affinity API v1, which allows you to manage lists of entities such as people, organizations, or opportunities.\n\n## Request Body\n\n| Name                      | Type    | Required | Description                                                                 |\n|---------------------------|---------|----------|-----------------------------------------------------------------------------|\n| name                      | string  | Yes      | The title of the list that will be displayed in Affinity.                   |\n| type                      | integer | Yes      | The type of entities contained within the list (people, organizations, or opportunities). |\n| public                    | boolean | No       | When true, the list is publicly accessible to all users in your Affinity account. Defaults to false. |\n| owner_id                  | integer | No       | The unique ID of the internal person who owns the list.                     |\n| additional_permissions    | array   | No       | A list of additional internal persons with permissions on the list. Each entry should include `internal_person_id` and `role_id`. |\n\n## Response Body\n\n| Name                      | Type    | Description                                                                 |\n|---------------------------|---------|-----------------------------------------------------------------------------|\n| id                        | integer | The unique identifier of the newly created list.                            |\n| name                      | string  | The title of the list.                                                      |\n| type                      | integer | The type of entities contained within the list.                             |\n| public                    | boolean | Indicates if the list is publicly accessible.                               |\n| owner_id                  | integer | The unique ID of the internal person who owns the list.                     |\n| additional_permissions    | array   | A list of additional internal persons with permissions on the list.         |"
+          },
+          "response": [
+            {
+              "name": "Creating a New List",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"My List of People\",\n    \"type\": 0,\n    \"public\": true,\n    \"owner_id\": 38706,\n    \"additional_permissions\": [\n        {\n            \"internal_person_id\": 38706,\n            \"role_id\": 0\n        }\n    ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://api.affinity.co/lists",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "lists"
+                  ]
+                }
+              },
+              "status": "201 Created",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 450,\n    \"name\": \"My List of People\",\n    \"type\": 0,\n    \"public\": true,\n    \"owner_id\": 38706,\n    \"additional_permissions\": [\n        {\n            \"internal_person_id\": 38706,\n            \"role_id\": 0\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Retrieve a list by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.affinity.co/lists/:list_id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "lists",
+                ":list_id"
+              ],
+              "variable": [
+                {
+                  "key": "list_id",
+                  "value": "{{list_id}}",
+                  "description": "The unique identifier of the list"
+                }
+              ]
+            },
+            "description": "The `GET /lists/{list_id}` operation retrieves the details for a specific list given the existing list ID. This operation is part of the Affinity API v1, which allows you to interact with lists that manage collections of people, organizations, or opportunities.\n\n## Response Body\n\n| Name                     | Type    | Description                                                                 |\n|--------------------------|---------|-----------------------------------------------------------------------------|\n| id                       | integer | The unique identifier of the list object.                                   |\n| type                     | integer | The type of entities contained within the list (people, organizations, etc.).|\n| name                     | string  | The title of the list displayed in Affinity.                                |\n| public                   | boolean | Indicates if the list is publicly accessible.                               |\n| owner_id                 | integer | The unique ID of the internal person who owns the list.                     |\n| creator_id               | integer | The unique ID of the internal person who created the list.                  |\n| list_size                | integer | The number of entries contained within the list.                            |\n| additional_permissions   | object[]| List of additional internal persons with permissions on the list.           |\n| additional_permissions.internal_person_id | integer | The unique ID of the internal person with additional permissions.          |\n| additional_permissions.role_id            | integer | The role ID associated with the additional permission.                      |\n"
+          },
+          "response": [
+            {
+              "name": "Retrieve List Details",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer YOUR_ACCESS_TOKEN",
+                    "description": "Bearer token for API authentication"
+                  }
+                ],
+                "url": {
+                  "raw": "https://api.affinity.co/lists/:list_id",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "lists",
+                    ":list_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "list_id",
+                      "value": "{{list_id}}",
+                      "description": "The unique identifier of the list"
+                    }
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"id\": 450,\n  \"type\": 0,\n  \"name\": \"My List of People\",\n  \"public\": true,\n  \"owner_id\": 38706,\n  \"creator_id\": 38901,\n  \"list_size\": 67,\n  \"additional_permissions\": [\n    {\n      \"internal_person_id\": 38706,\n      \"role_id\": 0\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Retrieve List Entries by List ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.affinity.co/lists/:list_id/list-entries",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "lists",
+                ":list_id",
+                "list-entries"
+              ],
+              "variable": [
+                {
+                  "key": "list_id",
+                  "value": "{{list_id}}",
+                  "description": "The unique identifier of the list."
+                }
+              ]
+            },
+            "description": "The API operation `GET /lists/{list_id}/list-entries` is used to retrieve all list entries associated with a specific list ID. This operation allows you to access the entity IDs linked to each list entry, which can be useful for further data processing or integration tasks.\n\n## Response Body\n\n| Name          | Type   | Description                                           |\n|---------------|--------|-------------------------------------------------------|\n| id            | number | The unique identifier of the list entry.              |\n| list_id       | number | The ID of the list to which the entry belongs.        |\n| creator_id    | number | The ID of the user who created the list entry.        |\n| entity_id     | number | The ID of the entity associated with the list entry.  |\n| entity_type   | number | The type of entity (e.g., person, organization).      |\n| created_at    | string | The timestamp when the list entry was created.        |\n| entity.id     | number | The ID of the entity.                                 |\n| entity.name   | string | The name of the entity.                               |"
+          },
+          "response": [
+            {
+              "name": "Retrieve List Entries",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.affinity.co/lists/:list_id/list-entries",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "lists",
+                    ":list_id",
+                    "list-entries"
+                  ],
+                  "variable": [
+                    {
+                      "key": "list_id",
+                      "value": "{{list_id}}",
+                      "description": "The unique identifier of the list."
+                    }
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "[\n  {\n    \"id\": 37605676,\n    \"list_id\": 113859,\n    \"creator_id\": 63842761,\n    \"entity_id\": 7133202,\n    \"entity_type\": 8,\n    \"created_at\": \"2021-09-12T16:29:15.962-07:00\",\n    \"entity\": {\n      \"id\": 7133202,\n      \"name\": \"Affinity Opportunity\"\n    }\n  }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Create a New List Entry",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"entity_id\": 38706\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api.affinity.co/lists/:list_id/list-entries",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "lists",
+                ":list_id",
+                "list-entries"
+              ],
+              "variable": [
+                {
+                  "key": "list_id",
+                  "value": "{{list_id}}"
+                }
+              ]
+            },
+            "description": "The API operation `POST /lists/{list_id}/list-entries` creates a new list entry in the list with the supplied list id. This operation allows you to add a person or organization to a specified list within Affinity. Opportunities cannot be created using this endpoint; instead, use the `POST /opportunities` endpoint.\n\n## Request Body\n\n| Name       | Type    | Required | Description                                                                 |\n|------------|---------|----------|-----------------------------------------------------------------------------|\n| entity_id  | integer | true     | The unique ID of the person or organization to add to this list.            |\n| creator_id | integer | false    | The ID of a Person resource who should be recorded as adding the entry to the list. Defaults to the owner of the API key if not provided. |\n\n## Response Body\n\n| Name              | Type    | Description                                                   |\n|-------------------|---------|---------------------------------------------------------------|\n| id                | integer | The unique identifier of the newly created list entry.       |\n| list_id           | integer | The ID of the list where the entry was added.                 |\n| creator_id        | integer | The ID of the person who created the entry.                   |\n| entity_id         | integer | The ID of the entity added to the list.                       |\n| created_at        | string  | The timestamp when the entry was created.                     |\n| entity            | object  | Details about the entity added to the list.                   |\n| entity.type       | integer | The type of entity (e.g., person or organization).            |\n| entity.first_name | string  | The first name of the person added to the list.               |\n| entity.last_name  | string  | The last name of the person added to the list.                |\n| entity.primary_email | string | The primary email of the person added to the list.          |\n| entity.emails     | array   | An array of emails associated with the entity.                |"
+          },
+          "response": [
+            {
+              "name": "Creating a New List Entry",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"entity_id\": 38706\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://api.affinity.co/lists/:list_id/list-entries",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "lists",
+                    ":list_id",
+                    "list-entries"
+                  ],
+                  "variable": [
+                    {
+                      "key": "list_id",
+                      "value": "{{list_id}}"
+                    }
+                  ]
+                }
+              },
+              "status": "201 Created",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": 53510,\n  \"list_id\": 450,\n  \"creator_id\": 38596,\n  \"entity_id\": 38706,\n  \"created_at\": \"2017-02-22T15:22:21.125-08:00\",\n  \"entity\": {\n    \"type\": 0,\n    \"first_name\": \"Person\",\n    \"last_name\": \"Example\",\n    \"primary_email\": \"redacted@example.com\",\n    \"emails\": [\"redacted@example.com\"]\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Fetch a Specific List Entry by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.affinity.co/lists/:list_id/list-entries/:list_entry_id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "lists",
+                ":list_id",
+                "list-entries",
+                ":list_entry_id"
+              ],
+              "variable": [
+                {
+                  "key": "list_id",
+                  "value": "{{list_id}}"
+                },
+                {
+                  "key": "list_entry_id",
+                  "value": "{{list_entry_id}}"
+                }
+              ]
+            },
+            "description": "The API operation `GET /lists/{list_id}/list-entries/{list_entry_id}` fetches a list entry with a specified id. This operation is part of the Affinity API v1 and belongs to the Lists group, specifically dealing with List Entry resources.\n\n## Response Body\n\n| Name                | Type    | Description                                                        |\n|---------------------|---------|--------------------------------------------------------------------|\n| id                  | integer | The unique identifier of the list entry.                          |\n| list_id             | integer | The unique identifier of the list containing the entry.           |\n| creator_id          | integer | The ID of the person who created the list entry.                  |\n| entity_id           | integer | The unique identifier of the associated entity (person or organization). |\n| created_at          | string  | The timestamp when the list entry was created.                    |\n| entity.type         | integer | The type of entity (e.g., person or organization).                |\n| entity.first_name   | string  | The first name of the person associated with the entry.           |\n| entity.last_name    | string  | The last name of the person associated with the entry.            |\n| entity.primary_email| string  | The primary email address of the person associated with the entry.|\n| entity.emails       | array   | An array of email addresses associated with the person.           |"
+          },
+          "response": [
+            {
+              "name": "Fetching a List Entry by ID",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.affinity.co/lists/:list_id/list-entries/:list_entry_id",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "lists",
+                    ":list_id",
+                    "list-entries",
+                    ":list_entry_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "list_id",
+                      "value": "{{list_id}}"
+                    },
+                    {
+                      "key": "list_entry_id",
+                      "value": "{{list_entry_id}}"
+                    }
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 16367,\n    \"list_id\": 450,\n    \"creator_id\": 38596,\n    \"entity_id\": 241576,\n    \"created_at\": \"2017-02-22T15:22:21.125-08:00\",\n    \"entity\": {\n        \"type\": 0,\n        \"first_name\": \"Person\",\n        \"last_name\": \"Example\",\n        \"primary_email\": \"redacted@example.com\",\n        \"emails\": [\"redacted@example.com\"]\n    }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete a Specific List Entry",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "https://api.affinity.co/lists/:list_id/list-entries/:list_entry_id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "lists",
+                ":list_id",
+                "list-entries",
+                ":list_entry_id"
+              ],
+              "variable": [
+                {
+                  "key": "list_id",
+                  "value": "{{list_id}}",
+                  "description": "The unique ID of the list that contains the specified list entry."
+                },
+                {
+                  "key": "list_entry_id",
+                  "value": "{{list_entry_id}}",
+                  "description": "The unique ID of the list entry object to be deleted."
+                }
+              ]
+            },
+            "description": "The API operation `DELETE /lists/{list_id}/list-entries/{list_entry_id}` deletes a list entry with a specified `list_entry_id`. This operation is part of the Affinity API v1, which allows you to manage lists and their entries. When a list entry is deleted, all associated field values specific to that list are also removed. If the list entry belongs to an Opportunity list, the associated opportunity will be deleted as well.\n\n## Response Body\n\n| Name    | Type    | Description                                      |\n|---------|---------|--------------------------------------------------|\n| success | boolean | Indicates whether the deletion was successful.   |"
+          },
+          "response": [
+            {
+              "name": "Delete a List Entry",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "https://api.affinity.co/lists/:list_id/list-entries/:list_entry_id",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "lists",
+                    ":list_id",
+                    "list-entries",
+                    ":list_entry_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "list_id",
+                      "value": "{{list_id}}"
+                    },
+                    {
+                      "key": "list_entry_id",
+                      "value": "{{list_entry_id}}"
+                    }
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{ \"success\": true }"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Notes",
+      "item": [
+        {
+          "name": "Retrieve all notes",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "https://api.affinity.co/notes?person_id={{person_id}}&organization_id={{organization_id}}&opportunity_id={{opportunity_id}}&creator_id={{creator_id}}&page_size={{page_size}}&page_token={{page_token}}",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "notes"
+              ],
+              "query": [
+                {
+                  "key": "person_id",
+                  "value": "{{person_id}}",
+                  "description": "A unique identifier representing a Person tagged in the retrieved notes."
+                },
+                {
+                  "key": "organization_id",
+                  "value": "{{organization_id}}",
+                  "description": "A unique identifier representing an Organization tagged in the retrieved notes."
+                },
+                {
+                  "key": "opportunity_id",
+                  "value": "{{opportunity_id}}",
+                  "description": "A unique identifier representing an Opportunity tagged in the retrieved notes."
+                },
+                {
+                  "key": "creator_id",
+                  "value": "{{creator_id}}",
+                  "description": "A unique identifier representing an Affinity user whose created notes should be retrieved."
+                },
+                {
+                  "key": "page_size",
+                  "value": "{{page_size}}",
+                  "description": "How many results to return per page. (Default is the maximum value of 500.)"
+                },
+                {
+                  "key": "page_token",
+                  "value": "{{page_token}}",
+                  "description": "The `next_page_token` from the previous response required to retrieve the next page of results."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Retrieve all notes",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "https://api.affinity.co/notes",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "notes"
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "[\n {\n \"id\": 22984,\n \"creator_id\": 860197,\n \"person_ids\": [38706,89734],\n \"is_meeting\": false,\n \"mentioned_person_ids\": [49817, 78624],\n \"organization_ids\": [64779194],\n \"opportunity_ids\": [117],\n \"parent_id\": null,\n \"content\": \"Had a lunch meeting with Jane ... \",\n \"type\": 0,\n \"created_at\": \"2017-03-28T00:38:41.275-08:00\",\n \"updated_at\": \"2017-04-03T00:22:25.612-08:00\"\n },\n {\n \"id\": 22983,\n \"creator_id\": 860196,\n \"person_ids\": [],\n \"is_meeting\": false,\n \"mentioned_person_ids\": [7237],\n \"organization_ids\": [64779194],\n \"opportunity_ids\": [115],\n \"parent_id\": null,\n \"content\": \"Had a **lunch meeting** @ ExampleOrg ... \",\n \"type\": 2,\n \"created_at\": \"2017-03-28T00:38:41.275-08:00\",\n \"updated_at\": null\n }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Create a new note",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"content\": \"Had a lunch meeting with Jane and Person today.\",\n    \"type\": 0,\n    \"creator_id\": 860197,\n    \"person_ids\": [38708, 24809],\n    \"organization_ids\": [64779194],\n    \"opportunity_ids\": [117]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api.affinity.co/notes",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "notes"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Creating a New Note",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"content\": \"Had a lunch meeting with Jane and Person today.\",\n    \"type\": 0,\n    \"creator_id\": 860197,\n    \"person_ids\": [38708, 24809],\n    \"organization_ids\": [64779194],\n    \"opportunity_ids\": [117]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://api.affinity.co/notes",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "notes"
+                  ]
+                }
+              },
+              "status": "201 Created",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 22984,\n    \"creator_id\": 860197,\n    \"person_ids\": [38708, 24809],\n    \"organization_ids\": [64779194],\n    \"opportunity_ids\": [117],\n    \"content\": \"Had a lunch meeting with Jane and Person today.\",\n    \"type\": 0,\n    \"created_at\": \"2017-03-28T00:38:41.275-08:00\",\n    \"updated_at\": \"2017-04-03T00:22:25.612-08:00\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Retrieve a specific note by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "https://api.affinity.co/notes/:note_id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "notes",
+                ":note_id"
+              ],
+              "variable": [
+                {
+                  "key": "note_id",
+                  "value": "{{note_id}}",
+                  "description": "The unique identifier of the note object to be retrieved."
+                }
+              ]
+            },
+            "description": "The `GET /notes/{note_id}` operation retrieves the details for a specific note given the existing note id. This operation is part of the Affinity API v1 and belongs to the Notes group, specifically targeting the Note resource.\n\n## Response Body\n\n| Name                        | Type      | Description                                                                                   |\n|-----------------------------|-----------|-----------------------------------------------------------------------------------------------|\n| id                          | integer   | The unique identifier of the note object.                                                     |\n| creator_id                  | integer   | The unique identifier of the person who created the note.                                     |\n| person_ids                  | integer[] | An array containing the unique identifiers for all the persons relevant to the note.          |\n| associated_person_ids       | integer[] | An array containing the unique identifiers for the persons directly associated with the note. |\n| interaction_person_ids      | integer[] | An array containing the unique identifiers for the persons on the interaction the note is attached to. |\n| interaction_id              | integer   | The unique identifier of the interaction the note is attached to, if any.                     |\n| interaction_type            | integer   | The type of the interaction the note is attached to, if any.                                  |\n| is_meeting                  | boolean   | True if the note is attached to a meeting or a call.                                          |\n| mentioned_person_ids        | integer[] | An array containing the unique identifiers for the persons who are @ mentioned in the note.   |\n| organization_ids            | integer[] | An array of unique identifiers of organization objects that are associated with the note.     |\n| opportunity_ids             | integer[] | An array of unique identifiers of opportunity objects that are associated with the note.      |\n| parent_id                   | integer   | The unique identifier of the note that this note is a reply to.                               |\n| content                     | string    | The string containing the content of the note.                                                |\n| type                        | integer   | The type of the note.                                                                         |\n| created_at                  | datetime  | The string representing the time when the note was created.                                   |\n| updated_at                  | datetime  | The string representing the last time the note was updated.                                   |"
+          },
+          "response": [
+            {
+              "name": "Retrieve a specific note",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "https://api.affinity.co/notes/:note_id",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "notes",
+                    ":note_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "note_id",
+                      "value": "22984"
+                    }
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n\"id\": 22984,\n\"creator_id\": 860197,\n\"person_ids\": [38708, 24809, 89203, 97304],\n\"associated_person_ids\": [38708, 24809],\n\"interaction_person_ids\": [89203, 97304],\n\"interaction_id\": 114,\n\"interaction_type\": 0,\n\"is_meeting\": true,\n\"mentioned_person_ids\": [49817, 78624],\n\"organization_ids\": [64779194],\n\"opportunity_ids\": [117],\n\"parent_id\": null,\n\"content\": \"Had a lunch meeting with Jane ... \",\n\"type\": 0,\n\"created_at\": \"2017-03-28T00:38:41.275-08:00\",\n\"updated_at\": \"2017-04-03T00:22:25.612-08:00\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update a Note",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"content\": \"Had another meeting with Jane and Person today\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api.affinity.co/notes/:note_id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "notes",
+                ":note_id"
+              ],
+              "variable": [
+                {
+                  "key": "note_id",
+                  "value": "{{note_id}}",
+                  "description": "The unique identifier of the note to update."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Update Note Content",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\"content\": \"Had another meeting with Jane and Person today\"}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://api.affinity.co/notes/:note_id",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "notes",
+                    ":note_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "note_id",
+                      "value": "{{note_id}}",
+                      "description": "The unique identifier of the note to update."
+                    }
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 22984,\n    \"creator_id\": 860197,\n    \"person_ids\": [38708, 24809, 89203, 97304],\n    \"associated_person_ids\": [38708, 24809],\n    \"interaction_person_ids\": [89203, 97304],\n    \"interaction_id\": 114,\n    \"interaction_type\": 0,\n    \"is_meeting\": true,\n    \"mentioned_person_ids\": [49817, 78624],\n    \"organization_ids\": [64779194],\n    \"opportunity_ids\": [117],\n    \"parent_id\": null,\n    \"content\": \"Had another meeting with Jane ... \",\n    \"type\": 0,\n    \"created_at\": \"2017-03-28T00:38:41.275-08:00\",\n    \"updated_at\": \"2017-04-03T00:22:25.612-08:00\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete a note by ID",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://api.affinity.co/notes/:note_id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "notes",
+                ":note_id"
+              ],
+              "variable": [
+                {
+                  "key": "note_id",
+                  "value": "{{note_id}}",
+                  "description": "The unique identifier of the note to be deleted."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Deleting a Note",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "https://api.affinity.co/notes/:note_id",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "notes",
+                    ":note_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "note_id",
+                      "value": "{{note_id}}",
+                      "description": "The unique identifier of the note to be deleted."
+                    }
+                  ]
+                }
+              },
+              "status": "204 No Content",
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            },
+            {
+              "name": "Note Not Found",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "https://api.affinity.co/notes/:note_id",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "notes",
+                    ":note_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "note_id",
+                      "value": "{{note_id}}",
+                      "description": "The unique identifier of the note to be deleted."
+                    }
+                  ]
+                }
+              },
+              "status": "404 Not Found",
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            },
+            {
+              "name": "Unauthorized Access",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "https://api.affinity.co/notes/:note_id",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "notes",
+                    ":note_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "note_id",
+                      "value": "{{note_id}}",
+                      "description": "The unique identifier of the note to be deleted."
+                    }
+                  ]
+                }
+              },
+              "status": "401 Unauthorized",
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Opportunities",
+      "item": [
+        {
+          "name": "Create a New Opportunity",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Penny Opportunity\",\n  \"list_id\": 6645,\n  \"person_ids\": [38706],\n  \"organization_ids\": [21442]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api.affinity.co/opportunities",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "opportunities"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Creating a New Opportunity",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Penny Opportunity\",\n  \"list_id\": 6645,\n  \"person_ids\": [38706],\n  \"organization_ids\": [21442]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://api.affinity.co/opportunities",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "opportunities"
+                  ]
+                }
+              },
+              "status": "201 Created",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": 120611418,\n  \"name\": \"Penny Opportunity\",\n  \"person_ids\": [38706],\n  \"organization_ids\": [21442],\n  \"list_entries\": [\n    {\n      \"id\": 999886,\n      \"creator_id\": 1127776,\n      \"list_id\": 6645,\n      \"entity_id\": 50,\n      \"entity_type\": 8,\n      \"created_at\": \"2018-03-07T16:32:35.794-08:00\"\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Retrieve an Opportunity by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "https://api.affinity.co/opportunities/:opportunity_id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "opportunities",
+                ":opportunity_id"
+              ],
+              "variable": [
+                {
+                  "key": "opportunity_id",
+                  "value": "{{opportunity_id}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Retrieve an Opportunity by ID",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "https://api.affinity.co/opportunities/:opportunity_id",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "opportunities",
+                    ":opportunity_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "opportunity_id",
+                      "value": "{{opportunity_id}}"
+                    }
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": 117,\n  \"name\": \"Affinity Opportunity\",\n  \"person_ids\": [3526824],\n  \"organization_ids\": [128367168],\n  \"list_entries\": [\n    {\n      \"id\": 442313,\n      \"creator_id\": 1124736,\n      \"list_id\": 4974,\n      \"entity_id\": 117,\n      \"entity_type\": 8,\n      \"created_at\": \"2018-03-03T23:02:46.412-08:00\"\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete an Opportunity by ID",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://api.affinity.co/opportunities/:opportunity_id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "opportunities",
+                ":opportunity_id"
+              ],
+              "variable": [
+                {
+                  "key": "opportunity_id",
+                  "value": "{{opportunity_id}}",
+                  "description": "The unique ID of the opportunity to be deleted."
+                }
+              ]
+            },
+            "description": "The `DELETE /opportunities/{opportunity_id}` operation deletes an opportunity with a specified `opportunity_id`. This operation is part of the Affinity API v1 and belongs to the Opportunities group. When an opportunity is deleted, all associated field values are also removed. For more information on the differences between Affinity API v1 and v2, visit [this link](https://support.affinity.co/s/article/Getting-started-with-the-Affinity-API-FAQs#h_01HKRBTA0ZF73GK0GY8ZW1WYNB). You can also refer to the [Affinity API v1 documentation](https://api-docs.affinity.com/v1/)."
+          },
+          "response": [
+            {
+              "name": "Deleting an Opportunity",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "https://api.affinity.co/opportunities/:opportunity_id",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "opportunities",
+                    ":opportunity_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "opportunity_id",
+                      "value": "{{opportunity_id}}"
+                    }
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\"success\": true}"
+            }
+          ]
+        },
+        {
+          "name": "Search Opportunities",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.affinity.co/opportunities?term=:term&page_size=:page_size&page_token=:page_token",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "opportunities"
+              ],
+              "query": [
+                {
+                  "key": "term",
+                  "value": ":term",
+                  "description": "A string used to search all the opportunities in your team's database. This could be part of a name."
+                },
+                {
+                  "key": "page_size",
+                  "value": ":page_size",
+                  "description": "How many results to return per page. (Default is the maximum value of 500.)"
+                },
+                {
+                  "key": "page_token",
+                  "value": ":page_token",
+                  "description": "The `next_page_token` from the previous response required to retrieve the next page of results."
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Organizations",
+      "item": [
+        {
+          "name": "Create a new organization",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"ExampleOrg Corporation\",\n  \"domain\": \"acme.co\",\n  \"person_ids\": [38706]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api.affinity.co/organizations",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "organizations"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Creating a New Organization",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"ExampleOrg Corporation\",\n  \"domain\": \"acme.co\",\n  \"person_ids\": [38706]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://api.affinity.co/organizations",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "organizations"
+                  ]
+                }
+              },
+              "status": "201 Created",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": 120611418,\n  \"name\": \"ExampleOrg Corporation\",\n  \"domain\": \"acme.co\",\n  \"domains\": [\"acme.co\"],\n  \"global\": false,\n  \"person_ids\": [38706]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Retrieve Organization Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.affinity.co/organizations/:organization_id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "organizations",
+                ":organization_id"
+              ],
+              "variable": [
+                {
+                  "key": "organization_id",
+                  "value": "{{organization_id}}",
+                  "description": "The unique identifier of the organization to retrieve details for."
+                }
+              ]
+            },
+            "description": "The `GET /organizations/{organization_id}` operation is used to retrieve all list people associated with a specific organization. It returns the `person_ids` associated with each organization, providing insights into the individuals linked to the organization within the Affinity platform.\n\n## Response Body\n\n| Name | Type | Description |\n|-----------------------|------------|--------------------------------------------------|\n| id | integer | The unique identifier of the organization. |\n| name | string | The name of the organization. |\n| domain | string | The primary domain of the organization. |\n| domains | array | Additional domains associated with the organization. |\n| crunchbase_uuid | string | The Crunchbase UUID of the organization, if available. |\n| global | boolean | Indicates if the organization is global. |\n| person_ids | array | List of person IDs associated with the organization. |\n| list_entries | array | List entries related to the organization. |"
+          },
+          "response": [
+            {
+              "name": "Retrieve Organization Details",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.affinity.co/organizations/:organization_id",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "organizations",
+                    ":organization_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "organization_id",
+                      "value": "{{organization_id}}",
+                      "description": "The unique identifier of the organization to retrieve details for."
+                    }
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 7133202,\n    \"name\": \"Affinity\",\n    \"domain\": \"affinity.co\",\n    \"domains\": [\"affinity.co\"],\n    \"crunchbase_uuid\": null,\n    \"global\": false,\n    \"person_ids\": [89734, 117270, 138123, 274492, 304848],\n    \"list_entries\": [\n        {\n            \"id\": 389,\n            \"list_id\": 26,\n            \"creator_id\": 38603,\n            \"entity_id\": 7133202,\n            \"entity_type\": 0,\n            \"created_at\": \"2020-12-11T02:26:56.537-08:00\"\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update an organization",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"ExampleOrg Corp.\",\n  \"person_ids\": [38706, 89734]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api.affinity.co/organizations/:organization_id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "organizations",
+                ":organization_id"
+              ],
+              "variable": [
+                {
+                  "key": "organization_id",
+                  "value": "{{organization_id}}",
+                  "description": "The unique identifier of the organization to update."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Update an organization's name and associated persons",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"ExampleOrg Corp.\",\n  \"person_ids\": [38706, 89734]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://api.affinity.co/organizations/:organization_id",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "organizations",
+                    ":organization_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "organization_id",
+                      "value": "{{organization_id}}"
+                    }
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": 120611418,\n  \"name\": \"ExampleOrg Corp.\",\n  \"domain\": \"acme.co\",\n  \"domains\": [\"acme.co\"],\n  \"global\": false,\n  \"person_ids\": [38706, 89734]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Fetch Global Organization Fields",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.affinity.co/organizations/fields",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "organizations",
+                "fields"
+              ]
+            },
+            "description": "The `GET /organizations/fields` operation fetches an array of all the global fields that exist on organizations. This endpoint is part of the Affinity API v1, which allows you to interact with various resources related to organizations and opportunities.\n\n## Response Body\n\n| Name               | Type    | Description                                                        |\n|--------------------|---------|--------------------------------------------------------------------|\n| id                 | integer | The unique identifier of the field.                               |\n| name               | string  | The name of the field.                                             |\n| value_type         | integer | The type of value the field holds (e.g., text, number, date).      |\n| allows_multiple    | boolean | Indicates if the field allows multiple values.                     |\n| dropdown_options   | array   | An array of options available if the field is a dropdown type.     |"
+          },
+          "response": [
+            {
+              "name": "Fetching Global Organization Fields",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.affinity.co/organizations/fields",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "organizations",
+                    "fields"
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "Text",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n  {\n    \"id\": 662,\n    \"name\": \"Potential Users\",\n    \"value_type\": 3,\n    \"allows_multiple\": false,\n    \"dropdown_options\": []\n  },\n  {\n    \"id\": 700,\n    \"name\": \"Leads\",\n    \"value_type\": 0,\n    \"allows_multiple\": true,\n    \"dropdown_options\": []\n  },\n  {\n    \"id\": 2988,\n    \"name\": \"Last Funding Date\",\n    \"value_type\": 4,\n    \"allows_multiple\": false,\n    \"dropdown_options\": []\n  }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Search and Retrieve Organizations",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.affinity.co/organizations?term=:term&with_interaction_dates=:with_interaction_dates&with_interaction_persons=:with_interaction_persons&with_opportunities=:with_opportunities&min_{interaction_type}_date=:min_{interaction_type}_date&max_{interaction_type}_date=:max_{interaction_type}_date&page_size=:page_size&page_token=:page_token",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "organizations"
+              ],
+              "query": [
+                {
+                  "key": "term",
+                  "value": ":term",
+                  "description": "A string used to search all the organizations in your team's address book. This could be a name or a domain name."
+                },
+                {
+                  "key": "with_interaction_dates",
+                  "value": ":with_interaction_dates",
+                  "description": "When true, interaction dates will be present on the returned resources. Only organizations that have interactions will be returned."
+                },
+                {
+                  "key": "with_interaction_persons",
+                  "value": ":with_interaction_persons",
+                  "description": "When true, persons for each interaction will be returned. Used in conjunction with `with_interaction_dates`."
+                },
+                {
+                  "key": "with_opportunities",
+                  "value": ":with_opportunities",
+                  "description": "When true, opportunity IDs associated with this organization will be returned."
+                },
+                {
+                  "key": "min_{interaction_type}_date",
+                  "value": ":min_{interaction_type}_date",
+                  "description": "Only returns organizations with the given interaction type above the given value. `interaction type` can be one of `first_email`, `last_email`, `last_interaction`, `last_event`, `first_event`, or `next_event`."
+                },
+                {
+                  "key": "max_{interaction_type}_date",
+                  "value": ":max_{interaction_type}_date",
+                  "description": "Only returns organizations with the given interaction type below the given value. `interaction type` can be one of `first_email`, `last_email`, `last_interaction`, `last_event`, `first_event`, or `next_event`."
+                },
+                {
+                  "key": "page_size",
+                  "value": ":page_size",
+                  "description": "How many results to return per page. (Default is the maximum value of 500.)"
+                },
+                {
+                  "key": "page_token",
+                  "value": ":page_token",
+                  "description": "The `next_page_token` from the previous response required to retrieve the next page of results."
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Persons",
+      "item": [
+        {
+          "name": "Create a new person",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name\": \"Contact\",\n  \"last_name\": \"Example\",\n  \"emails\": [\"redacted@example.com\"],\n  \"organization_ids\": [1687449]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api.affinity.co/persons",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "persons"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Creating a New Person",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"first_name\": \"Contact\",\n  \"last_name\": \"Example\",\n  \"emails\": [\"redacted@example.com\"],\n  \"organization_ids\": [1687449]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://api.affinity.co/persons",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "persons"
+                  ]
+                }
+              },
+              "status": "201 Created",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": 860197,\n  \"type\": 0,\n  \"first_name\": \"Contact\",\n  \"last_name\": \"Example\",\n  \"primary_email\": \"redacted@example.com\",\n  \"emails\": [\"redacted@example.com\"],\n  \"organization_ids\": [1687449]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Retrieve a person by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.affinity.co/persons/:person_id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "persons",
+                ":person_id"
+              ],
+              "variable": [
+                {
+                  "key": "person_id",
+                  "value": "{{person_id}}",
+                  "description": "A unique identifier representing the person to be retrieved."
+                }
+              ]
+            },
+            "description": "The API operation `GET /persons/{person_id}` fetches a person with a specified `person_id`. This endpoint allows you to retrieve detailed information about a specific person in your organization's contact list, including their name, email addresses, associated organizations, and interaction dates.\n\n## Response Body\n\n| Name | Type | Description |\n|----------------------------|------------|-------------------------------------------------------------------------------------------------|\n| id | integer | The unique identifier of the person object. |\n| type | integer | The type of person (internal or external to your team). |\n| first_name | string | The first name of the person. |\n| last_name | string | The last name of the person. |\n| emails | string[] | The email addresses of the person. |\n| primary_email | string | The email that is most likely the current active email address of the person. |\n| organization_ids | integer[] | An array of unique identifiers of organizations that the person is associated with. |\n| opportunity_ids | integer[] | An array of unique identifiers of opportunities that the person is associated with. |\n| current_organization_ids | integer[] | An array of unique identifiers of organizations that the person is currently associated with. |\n| list_entries | ListEntry[]| An array of list entry resources associated with the person. |\n| interaction_dates | object | An object with date fields representing the most recent and upcoming interactions with the person. |\n| interactions | object | An object with fields nested underneath, each corresponding to one of the seven interactions. |"
+          },
+          "response": [
+            {
+              "name": "Retrieve a specific person",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.affinity.co/persons/:person_id",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "persons",
+                    ":person_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "person_id",
+                      "value": "{{person_id}}",
+                      "description": "A unique identifier representing the person to be retrieved."
+                    }
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"id\": 38706,\n  \"type\": 0,\n  \"first_name\": \"Person\",\n  \"last_name\": \"Example\",\n  \"primary_email\": \"redacted@example.com\",\n  \"emails\": [\n    \"redacted@example.com\",\n    \"redacted@example.com\",\n    \"redacted@example.com\"\n  ],\n  \"organization_ids\": [\n    1687449\n  ],\n  \"opportunity_ids\": [\n    4,\n    11\n  ],\n  \"current_organization_ids\": [1687449],\n  \"list_entries\": [\n    {\n      \"id\": 388,\n      \"list_id\": 26,\n      \"creator_id\": 38603,\n      \"entity_id\": 38706,\n      \"created_at\": \"2015-12-11T02:26:56.537-08:00\"\n    }\n  ],\n  \"interaction_dates\": {\n    \"first_email_date\": \"2011-11-23T08:12:45.328-08:00\",\n    \"last_email_date\": \"2012-03-04T05:06:07.890-08:00\",\n    \"last_event_date\": \"2011-12-11T02:26:56.537-08:00\",\n    \"last_chat_message_date\": \"2011-11-01T02:26:56.537-08:00\",\n    \"last_interaction_date\": \"2012-03-04T05:06:07.890-08:00\",\n    \"next_event_date\": \"2019-03-04T05:06:07.890-08:00\",\n    \"first_event_date\": \"2012-01-01T08:18:00.329-08:00\"\n  },\n  \"interactions\": {\n    \"first_email\": {\n      \"date\": \"2011-11-23T08:12:45.328-08:00\",\n      \"person_ids\": [\n        123\n      ]\n    },\n    \"last_email\": {\n      \"date\": \"2012-03-04T05:06:07.890-08:00\",\n      \"person_ids\": [\n        123\n      ]\n    },\n    \"last_event\": {\n      \"date\": \"2011-12-11T02:26:56.537-08:00\",\n      \"person_ids\": [\n        123\n      ]\n    },\n    \"last_chat_message\": {\n      \"date\": \"2011-11-01T02:26:56.537-08:00\",\n      \"person_ids\": [\n        123\n      ]\n    },\n    \"last_interaction\": {\n      \"date\": \"2012-03-04T05:06:07.890-08:00\",\n      \"person_ids\": [\n        123,\n        111\n      ]\n    },\n    \"next_event\": {\n      \"date\": \"2019-03-04T05:06:07.890-08:00\",\n      \"person_ids\": [\n        123,\n        124,\n        125\n      ]\n    },\n    \"first_event\": {\n      \"date\": \"2012-01-01T08:18:00.329-08:00\",\n      \"person_ids\": [\n        123\n      ]\n    }\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update a person by ID",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"emails\": [\n        \"redacted@example.com\",\n        \"redacted@example.com\",\n        \"redacted@example.com\"\n    ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api.affinity.co/persons/:person_id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "persons",
+                ":person_id"
+              ],
+              "variable": [
+                {
+                  "key": "person_id",
+                  "value": "{{person_id}}",
+                  "description": "The unique identifier of the person to be updated."
+                }
+              ]
+            },
+            "description": "The API operation `PUT /persons/{person_id}` updates an existing person with the specified `person_id` using the supplied parameters. This operation allows you to modify details of a person resource within the Affinity platform, ensuring that contact information and associated data remain current.\n\n## Request Body\n\n| Name                        | Type       | Required | Description                                                        |\n|-----------------------------|------------|----------|--------------------------------------------------------------------|\n| first_name                  | string     |          | The first name of the person.                                      |\n| last_name                   | string     |          | The last name of the person.                                       |\n| emails                      | string[]   |          | An array of email addresses associated with the person.            |\n| primary_email               | string     |          | The primary email address of the person, automatically computed by Affinity.|\n| organization_ids            | integer[]  |          | An array of organization IDs the person is associated with.        |\n| opportunity_ids             | integer[]  |          | An array of opportunity IDs the person is associated with.         |\n| current_organization_ids    | integer[]  |          | An array of current organization IDs according to Affinity's data. |\n\n## Response Body\n\n| Name                        | Type       | Required | Description                                                        |\n|-----------------------------|------------|----------|--------------------------------------------------------------------|\n| id                          | integer    |          | The unique identifier of the person.                               |\n| first_name                  | string     |          | The first name of the person.                                      |\n| last_name                   | string     |          | The last name of the person.                                       |\n| primary_email               | string     |          | The primary email address of the person.                           |\n| emails                      | string[]   |          | An array of email addresses associated with the person.            |\n| organization_ids            | integer[]  |          | An array of organization IDs the person is associated with.        |\n| opportunity_ids             | integer[]  |          | An array of opportunity IDs the person is associated with.         |\n| current_organization_ids    | integer[]  |          | An array of current organization IDs according to Affinity's data. |"
+          },
+          "response": [
+            {
+              "name": "Update a person's email",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"emails\": [\n        \"redacted@example.com\",\n        \"redacted@example.com\",\n        \"redacted@example.com\"\n    ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://api.affinity.co/persons/:person_id",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "persons",
+                    ":person_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "person_id",
+                      "value": "{{person_id}}",
+                      "description": "The unique identifier of the person to be updated."
+                    }
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 38706,\n    \"first_name\": \"Person\",\n    \"last_name\": \"Example\",\n    \"primary_email\": \"redacted@example.com\",\n    \"emails\": [\n        \"redacted@example.com\",\n        \"redacted@example.com\",\n        \"redacted@example.com\"\n    ],\n    \"organization_ids\": [\n        1687449\n    ],\n    \"opportunity_ids\": [\n        4,\n        11\n    ],\n    \"current_organization_ids\": [1687449]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete a person by ID",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://api.affinity.co/persons/:person_id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "persons",
+                ":person_id"
+              ],
+              "variable": [
+                {
+                  "key": "person_id",
+                  "value": "{{person_id}}",
+                  "description": "A unique identifier for the person to be deleted."
+                }
+              ]
+            },
+            "description": "The `DELETE /persons/{person_id}` operation is part of the Affinity API v1 and is used to delete a person resource identified by a specific `person_id`. This operation allows you to remove a person from your organization's contact list in Affinity. For more information on the differences between Affinity API v1 and v2, please refer to [this link](https://support.affinity.co/s/article/Getting-started-with-the-Affinity-API-FAQs#h_01HKRBTA0ZF73GK0GY8ZW1WYNB). You can also find the complete Affinity API v1 documentation [here](https://api-docs.affinity.com/v1/)."
+          },
+          "response": [
+            {
+              "name": "Deleting a Person",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "https://api.affinity.co/persons/:person_id",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "persons",
+                    ":person_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "person_id",
+                      "value": "860197"
+                    }
+                  ]
+                }
+              },
+              "status": "204 No Content",
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            },
+            {
+              "name": "Person Not Found",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "https://api.affinity.co/persons/:person_id",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "persons",
+                    ":person_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "person_id",
+                      "value": "nonexistent_id"
+                    }
+                  ]
+                }
+              },
+              "status": "404 Not Found",
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            },
+            {
+              "name": "Unauthorized Request",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "https://api.affinity.co/persons/:person_id",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "persons",
+                    ":person_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "person_id",
+                      "value": "860197"
+                    }
+                  ]
+                }
+              },
+              "status": "401 Unauthorized",
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        },
+        {
+          "name": "Fetch Global Person Fields",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.affinity.co/persons/fields",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "persons",
+                "fields"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Fetching Global Person Fields",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.affinity.co/persons/fields",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "persons",
+                    "fields"
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n  {\n    \"id\": 125,\n    \"name\": \"Use Case\",\n    \"value_type\": 2,\n    \"allows_multiple\": true,\n    \"dropdown_options\": []\n  },\n  {\n    \"id\": 198,\n    \"name\": \"Referrers\",\n    \"value_type\": 0,\n    \"allows_multiple\": true,\n    \"dropdown_options\": []\n  },\n  {\n    \"id\": 1615,\n    \"name\": \"Address\",\n    \"value_type\": 5,\n    \"allows_multiple\": false,\n    \"dropdown_options\": []\n  }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Search and Retrieve Persons",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.affinity.co/persons?term=:term&with_interaction_dates=:with_interaction_dates&with_interaction_persons=:with_interaction_persons&with_opportunities=:with_opportunities&with_current_organizations=:with_current_organizations&min_{interaction_type}_date=:min_{interaction_type}_date&max_{interaction_type}_date=:max_{interaction_type}_date&page_size=:page_size&page_token=:page_token",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "persons"
+              ],
+              "query": [
+                {
+                  "key": "term",
+                  "value": ":term",
+                  "description": "A string used to search all the persons in your team's address book. This could be an email address, a first name, or a last name."
+                },
+                {
+                  "key": "with_interaction_dates",
+                  "value": ":with_interaction_dates",
+                  "description": "When true, interaction dates will be present on the returned resources. Only persons that have interactions will be returned."
+                },
+                {
+                  "key": "with_interaction_persons",
+                  "value": ":with_interaction_persons",
+                  "description": "When true, persons for each interaction will be returned. Used in conjunction with `with_interaction_dates`."
+                },
+                {
+                  "key": "with_opportunities",
+                  "value": ":with_opportunities",
+                  "description": "When true, opportunity IDs will be returned for each person."
+                },
+                {
+                  "key": "with_current_organizations",
+                  "value": ":with_current_organizations",
+                  "description": "When true, the organization IDs of each person's current organizations will be returned."
+                },
+                {
+                  "key": "min_{interaction_type}_date",
+                  "value": ":min_{interaction_type}_date",
+                  "description": "Only returns persons with the given interaction type above the given value. `interaction type` can be one of `first_email`, `last_email`, `last_interaction`, `last_event`, `first_event`, or `next_event`."
+                },
+                {
+                  "key": "max_{interaction_type}_date",
+                  "value": ":max_{interaction_type}_date",
+                  "description": "Only returns persons with the given interaction type below the given value. `interaction type` can be one of `first_email`, `last_email`, `last_interaction`, `last_event`, `first_event`, or `next_event`."
+                },
+                {
+                  "key": "page_size",
+                  "value": ":page_size",
+                  "description": "How many results to return per page. (Default is the maximum value of 500.)"
+                },
+                {
+                  "key": "page_token",
+                  "value": ":page_token",
+                  "description": "The `next_page_token` from the previous response required to retrieve the next page of results."
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Rate Limits",
+      "item": [
+        {
+          "name": "Retrieve Rate Limit Information",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.affinity.co/rate-limit",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "rate-limit"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Retrieve Rate Limit Information",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.affinity.co/rate-limit",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "rate-limit"
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n  \"rate\": {\n    \"org_monthly\": {\n      \"limit\": 40000,\n      \"remaining\": 39993,\n      \"reset\": 2124845,\n      \"used\": 7\n    },\n    \"api_key_per_minute\": {\n      \"limit\": 900,\n      \"remaining\": 900,\n      \"reset\": 0,\n      \"used\": 0\n    }\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Relationships Strengths",
+      "item": [
+        {
+          "name": "Retrieve Relationship Strengths",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "https://api.affinity.co/relationships-strengths?person_id=:person_id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "relationships-strengths"
+              ],
+              "query": [
+                {
+                  "key": "person_id",
+                  "value": ":person_id",
+                  "description": "The ID of the person to query strengths for"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "person_id",
+                  "value": "{{person_id}}",
+                  "description": "The ID of the person to query strengths for"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Retrieve Relationship Strengths for a Person",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.affinity.co/relationships-strengths?person_id=89734",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "relationships-strengths"
+                  ],
+                  "query": [
+                    {
+                      "key": "person_id",
+                      "value": "89734"
+                    }
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n  {\n    \"internal_id\": 26317,\n    \"external_id\": 89734,\n    \"strength\": 0.5\n  }\n]"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Reminders",
+      "item": [
+        {
+          "name": "Create a new reminder",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"owner_id\": 443,\n  \"person_id\": 2021,\n  \"type\": 0,\n  \"due_date\": \"2021-11-30\",\n  \"content\": \"Create reminder from external API.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api.affinity.co/reminders",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "reminders"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Creating a New Reminder",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"owner_id\": 443,\n  \"person_id\": 2021,\n  \"type\": 0,\n  \"due_date\": \"2021-11-30\",\n  \"content\": \"Create reminder from external API.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://api.affinity.co/reminders",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "reminders"
+                  ]
+                }
+              },
+              "status": "201 Created",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": 15385,\n  \"type\": 0,\n  \"created_at\": \"2022-02-01T09:36:07.316-08:00\",\n  \"completed_at\": null,\n  \"content\": \"Create reminder from external API\",\n  \"due_date\": \"2021-11-30T00:00:00.000-08:00\",\n  \"reset_type\": null,\n  \"reminder_days\": null,\n  \"status\": 2,\n  \"creator\": {\n    \"id\": 443,\n    \"type\": 1,\n    \"first_name\": \"Person\",\n    \"last_name\": \"Example\",\n    \"primary_email\": \"redacted@example.com\",\n    \"emails\": [\n      \"redacted@example.com\"\n    ]\n  },\n  \"owner\": {\n    \"id\": 443,\n    \"type\": 1,\n    \"first_name\": \"Person\",\n    \"last_name\": \"Example\",\n    \"primary_email\": \"redacted@example.com\",\n    \"emails\": [\n      \"redacted@example.com\"\n    ]\n  },\n  \"completer\": null,\n  \"person\": {\n    \"id\": 2021,\n    \"type\": 0,\n    \"first_name\": \"Contact\",\n    \"last_name\": \"Member\",\n    \"primary_email\": \"redacted@example.com\",\n    \"emails\": [\n      \"redacted@example.com\"\n    ]\n  },\n  \"organization\": null,\n  \"opportunity\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "Retrieve a reminder by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.affinity.co/reminders/:reminder_id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "reminders",
+                ":reminder_id"
+              ],
+              "variable": [
+                {
+                  "key": "reminder_id",
+                  "value": "{{reminder_id}}",
+                  "description": "The unique identifier of the reminder to retrieve."
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update a Reminder",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": 1,\n  \"reset_type\": 0,\n  \"reminder_days\": 30\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api.affinity.co/reminders/:reminder_id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "reminders",
+                ":reminder_id"
+              ],
+              "variable": [
+                {
+                  "key": "reminder_id",
+                  "value": "{{reminder_id}}"
+                }
+              ]
+            },
+            "description": "The API operation `PUT /reminders/{reminder_id}` updates the content of an existing reminder with the specified `reminder_id` using the supplied parameters. This operation allows you to modify details such as the type, reset type, due date, and other attributes of a reminder.\n\n## Request Body\n\n| Name           | Type    | Required | Description                                                                 |\n|----------------|---------|----------|-----------------------------------------------------------------------------|\n| owner_id       | integer |          | A unique identifier representing the internal person assigned to the reminder. |\n| content        | string  |          | The string containing the content of the new reminder.                       |\n| type           | integer |          | The type of reminder to be updated.                                          |\n| reset_type     | integer |          | The reset type of reminder to be updated. Required when `type == 1`.         |\n| due_date       | string  |          | A string (formatted according to ISO 8601) representing the due date of the reminder to be updated. Required when `type == 0`. |\n| reminder_days  | integer |          | When a recurring reminder is completed or reset, the number of days before the reminder is due again. Required when `type == 1`. |\n| is_completed   | integer |          | Indicator if the reminder has been completed.                                |\n\n## Response Body\n\n| Name                  | Type    | Description                                                                 |\n|-----------------------|---------|-----------------------------------------------------------------------------|\n| id                    | integer | The unique identifier of the reminder.                                      |\n| type                  | integer | The type of the reminder.                                                   |\n| created_at            | string  | The timestamp when the reminder was created.                                |\n| completed_at          | string  | The timestamp when the reminder was completed, if applicable.               |\n| content               | string  | The content of the reminder.                                                |\n| due_date              | string  | The due date of the reminder.                                               |\n| reset_type            | integer | The reset type of the reminder.                                             |\n| reminder_days         | integer | The number of days before the reminder is due again.                        |\n| status                | integer | The status of the reminder.                                                 |\n| creator               | object  | Information about the creator of the reminder.                              |\n| owner                 | object  | Information about the owner of the reminder.                                |\n| completer             | object  | Information about the completer of the reminder, if applicable.             |\n| person                | object  | Information about the person tagged in the reminder, if applicable.         |\n| organization          | object  | Information about the organization tagged in the reminder, if applicable.   |\n| opportunity           | object  | Information about the opportunity tagged in the reminder, if applicable.    |\n"
+          },
+          "response": [
+            {
+              "name": "Update a Reminder",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": 1,\n  \"reset_type\": 0,\n  \"reminder_days\": 30\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://api.affinity.co/reminders/:reminder_id",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "reminders",
+                    ":reminder_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "reminder_id",
+                      "value": "{{reminder_id}}"
+                    }
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"id\": 15385,\n  \"type\": 1,\n  \"created_at\": \"2022-02-01T09:36:07.316-08:00\",\n  \"completed_at\": null,\n  \"content\": \"Create reminder from external API\",\n  \"due_date\": \"2021-11-30T00:00:00.000-08:00\",\n  \"reset_type\": 0,\n  \"reminder_days\": 70,\n  \"status\": 2,\n  \"creator\": {\n    \"id\": 443,\n    \"type\": 1,\n    \"first_name\": \"Person\",\n    \"last_name\": \"Example\",\n    \"primary_email\": \"redacted@example.com\",\n    \"emails\": [\n      \"redacted@example.com\"\n    ]\n  },\n  \"owner\": {\n    \"id\": 443,\n    \"type\": 1,\n    \"first_name\": \"Person\",\n    \"last_name\": \"Example\",\n    \"primary_email\": \"redacted@example.com\",\n    \"emails\": [\n      \"redacted@example.com\"\n    ]\n  },\n  \"completer\": null,\n  \"person\": {\n    \"id\": 2021,\n    \"type\": 0,\n    \"first_name\": \"Contact\",\n    \"last_name\": \"Member\",\n    \"primary_email\": \"redacted@example.com\",\n    \"emails\": [\n      \"redacted@example.com\"\n    ]\n  },\n  \"organization\": null,\n  \"opportunity\": null\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete a reminder by ID",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://api.affinity.co/reminders/:reminder_id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "reminders",
+                ":reminder_id"
+              ],
+              "variable": [
+                {
+                  "key": "reminder_id",
+                  "value": "{{reminder_id}}",
+                  "description": "The unique ID of the reminder to be deleted."
+                }
+              ]
+            },
+            "description": "The `DELETE /reminders/{reminder_id}` operation deletes the reminder with the specified `reminder_id`. This operation is part of the Affinity API v1, which allows you to manage reminders within your Affinity instance.\n\n## Response Body\n\n| Name    | Type    | Description                                |\n|---------|---------|--------------------------------------------|\n| success | boolean | Indicates if the deletion was successful.  |"
+          },
+          "response": [
+            {
+              "name": "Deleting a Reminder",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "https://api.affinity.co/reminders/:reminder_id",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "reminders",
+                    ":reminder_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "reminder_id",
+                      "value": "{{reminder_id}}"
+                    }
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{ \"success\": true }"
+            }
+          ]
+        },
+        {
+          "name": "Retrieve all reminders",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "https://api.affinity.co/reminders?page_size=2&status=2",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "reminders"
+              ],
+              "query": [
+                {
+                  "key": "page_size",
+                  "value": "2",
+                  "description": "Number of results to return per page. Default is the maximum value of 500."
+                },
+                {
+                  "key": "status",
+                  "value": "2",
+                  "description": "The status of reminders to be retrieved."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Retrieve Overdue Reminders",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.affinity.co/reminders?page_size=2&status=2",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "reminders"
+                  ],
+                  "query": [
+                    {
+                      "key": "page_size",
+                      "value": "2"
+                    },
+                    {
+                      "key": "status",
+                      "value": "2"
+                    }
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [],
+              "cookie": [],
+              "body": "{\n    \"reminders\": [\n        {\n            \"id\": 15562,\n            \"type\": 1,\n            \"created_at\": \"2021-11-22T09:31:52.415-08:00\",\n            \"completed_at\": null,\n            \"content\": \"Recurring reminder\",\n            \"due_date\": \"2021-12-22T09:31:52.415-08:00\",\n            \"reset_type\": 0,\n            \"reminder_days\": 30,\n            \"status\": 2,\n            \"creator\": {\n                \"id\": 443,\n                \"type\": 1,\n                \"first_name\": \"Person\",\n                \"last_name\": \"Example\",\n                \"primary_email\": \"redacted@example.com\",\n                \"emails\": [\n                    \"redacted@example.com\"\n                ]\n            },\n            \"owner\": {\n                \"id\": 443,\n                \"type\": 1,\n                \"first_name\": \"Person\",\n                \"last_name\": \"Example\",\n                \"primary_email\": \"redacted@example.com\",\n                \"emails\": [\n                    \"redacted@example.com\"\n                ]\n            },\n            \"completer\": null,\n            \"person\": null,\n            \"organization\": {\n                \"id\": 4904,\n                \"name\": \"organization\",\n                \"domain\": null,\n                \"domains\": [],\n                \"crunchbase_uuid\": null,\n                \"global\": false\n            },\n            \"opportunity\": null\n        },\n        {\n            \"id\": 15326,\n            \"type\": 1,\n            \"created_at\": \"2021-11-18T14:34:53.218-08:00\",\n            \"completed_at\": null,\n            \"content\": \"Reply email to Contact\",\n            \"due_date\": \"2021-12-18T14:34:53.217-08:00\",\n            \"reset_type\": 1,\n            \"reminder_days\": 30,\n            \"status\": 2,\n            \"creator\": {\n                \"id\": 443,\n                \"type\": 1,\n                \"first_name\": \"Person\",\n                \"last_name\": \"Example\",\n                \"primary_email\": \"redacted@example.com\",\n                \"emails\": [\n                    \"redacted@example.com\"\n                ]\n            },\n            \"owner\": {\n                \"id\": 443,\n                \"type\": 1,\n                \"first_name\": \"Person\",\n                \"last_name\": \"Example\",\n                \"primary_email\": \"redacted@example.com\",\n                \"emails\": [\n                    \"redacted@example.com\"\n                ]\n            },\n            \"completer\": null,\n            \"person\": {\n                \"id\": 2021,\n                \"type\": 0,\n                \"first_name\": \"Contact\",\n                \"last_name\": \"Member\",\n                \"primary_email\": \"redacted@example.com\",\n                \"emails\": [\n                    \"redacted@example.com\"\n                ]\n            },\n            \"organization\": null,\n            \"opportunity\": null\n        }\n    ],\n    \"next_page_token\": \"eyJwYXJhbXMiOnsiY29tcGxldGVyX2lkIjpudWxsLCJvd25lcl9pZCI6bnVsbCwiY3JlYXRvcl9\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Variables",
+      "item": []
+    },
+    {
+      "name": "Webhooks",
+      "item": [
+        {
+          "name": "Retrieve all webhook subscriptions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.affinity.co/webhook",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "webhook"
+              ]
+            },
+            "description": "The `GET /webhook` operation returns all of your organization's webhook subscriptions. This allows you to view the current webhook configurations set up for your organization, including details such as the webhook URL, the events subscribed to, and whether the subscription is currently enabled or disabled."
+          },
+          "response": [
+            {
+              "name": "Retrieve all webhook subscriptions",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.affinity.co/webhook",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "webhook"
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n  {\n    \"id\": 1234,\n    \"webhook_url\": \"https://hooks.example.com/webhook-create\",\n    \"subscriptions\": [\n      \"list.created\",\n      \"person.created\",\n      \"organization.created\",\n      \"opportunity.created\"\n    ],\n    \"disabled\": false,\n    \"created_by\": 5678\n  },\n  {\n    \"id\": 2345,\n    \"webhook_url\": \"https://hooks.example.com/webhook-all\",\n    \"subscriptions\": [],\n    \"disabled\": true,\n    \"created_by\": 5678\n  }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Retrieve a Webhook Subscription by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.affinity.co/webhook/:webhook_subscription_id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "webhook",
+                ":webhook_subscription_id"
+              ],
+              "variable": [
+                {
+                  "key": "webhook_subscription_id",
+                  "value": "{{webhook_subscription_id}}",
+                  "description": "The unique ID of the webhook subscription that needs to be retrieved."
+                }
+              ]
+            },
+            "description": "The `GET /webhook/{webhook_subscription_id}` operation retrieves the details for a specific webhook subscription given the specified `webhook_subscription_id`. This operation is part of the Affinity API v1, which allows you to manage and interact with your Affinity instance programmatically.\n\n## Response Body\n\n| Name                  | Type     | Description                                                        |\n|-----------------------|----------|--------------------------------------------------------------------|\n| id                    | integer  | The unique identifier of the webhook subscription object.          |\n| webhook_url           | string   | The URL to which the webhooks are sent.                            |\n| subscriptions         | string[] | An array of webhook events that are enabled for that endpoint.     |\n| disabled              | boolean  | Indicates if the subscription is disabled.                         |\n| created_by            | integer  | The unique identifier of the user who created the webhook subscription. |"
+          },
+          "response": [
+            {
+              "name": "Retrieve Webhook Subscription Details",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.affinity.co/webhook/:webhook_subscription_id",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "webhook",
+                    ":webhook_subscription_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "webhook_subscription_id",
+                      "value": "{{webhook_subscription_id}}"
+                    }
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 1234,\n    \"webhook_url\": \"https://hooks.example.com/webhook\",\n    \"subscriptions\": [\n        \"list.created\",\n        \"person.created\",\n        \"organization.created\",\n        \"opportunity.created\"\n    ],\n    \"disabled\": false,\n    \"created_by\": 5678\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update a Webhook Subscription",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "webhook_url",
+                  "value": "",
+                  "type": "text",
+                  "description": "The URL to which the webhooks will be sent to."
+                },
+                {
+                  "key": "subscriptions",
+                  "value": "",
+                  "type": "text",
+                  "description": "An array of webhook events that will be enabled for that endpoint. Leave out or pass an empty array to subscribe to all events."
+                },
+                {
+                  "key": "disabled",
+                  "value": "",
+                  "type": "text",
+                  "description": "Change the status of a subscription. To enable a subscription, provide the value as `false`. Otherwise, provide the value as `true`."
+                }
+              ]
+            },
+            "url": {
+              "raw": "https://api.affinity.co/webhook/:webhook_subscription_id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "webhook",
+                ":webhook_subscription_id"
+              ],
+              "variable": [
+                {
+                  "key": "webhook_subscription_id",
+                  "value": "{{webhook_subscription_id}}",
+                  "description": "The unique ID of the webhook subscription that needs to be updated."
+                }
+              ]
+            },
+            "description": "The API operation `PUT /webhook/{webhook_subscription_id}` updates a webhook subscription with the supplied parameters. This operation allows you to modify the details of an existing webhook subscription, such as changing the webhook URL, updating the list of subscribed events, or enabling/disabling the subscription. A webhook subscription can only be updated by its creator. If the endpoint returns an invalid response, the webhook update will fail.\n\n## Request Body\n\n| Name | Type | Required | Description |\n|-----------------|----------|----------|-----------------------------------------------------------------------------------------------|\n| webhook_url | string | false | The URL to which the webhooks will be sent to. |\n| subscriptions | string[] | false | An array of webhook events that will be enabled for that endpoint. Leave out or pass an empty array to subscribe to all events. |\n| disabled | boolean | false | Change the status of a subscription. To enable a subscription, provide the value as `false`. Otherwise, provide the value as `true.` |\n\n## Response Body\n\n| Name | Type | Description |\n|---------------------|----------|-----------------------------------------------------------------------------------------------|\n| id | integer | The unique ID of the webhook subscription. |\n| webhook_url | string | The URL to which the webhooks will be sent. |\n| subscriptions | string[] | An array of webhook events that are enabled for that endpoint. |\n| disabled | boolean | Indicates whether the subscription is disabled. |\n| created_by | integer | The ID of the user who created the webhook subscription. |"
+          },
+          "response": [
+            {
+              "name": "Update Webhook Subscription",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [],
+                "url": {
+                  "raw": "https://api.affinity.co/webhook/:webhook_subscription_id",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "webhook",
+                    ":webhook_subscription_id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "webhook_subscription_id",
+                      "value": "{{webhook_subscription_id}}"
+                    }
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n\"id\": 1234,\n\"webhook_url\": \"https://hooks.example.com/webhook\",\n\"subscriptions\": [],\n\"disabled\": true,\n\"created_by\": 5678\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete a Webhook Subscription",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://api.affinity.co/webhook/:webhook_subscription_id",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "webhook",
+                ":webhook_subscription_id"
+              ],
+              "variable": [
+                {
+                  "key": "webhook_subscription_id",
+                  "value": "{{webhook_subscription_id}}",
+                  "description": "The unique ID of the webhook subscription that needs to be deleted."
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create a New Webhook Subscription",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"webhook_url\": \"https://hooks.example.com/webhook\",\n    \"subscriptions\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://api.affinity.co/webhook/subscribe",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "webhook",
+                "subscribe"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Creating a Webhook Subscription",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"webhook_url\": \"https://hooks.example.com/webhook\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "https://api.affinity.co/webhook/subscribe",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "webhook",
+                    "subscribe"
+                  ]
+                }
+              },
+              "status": "201 Created",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 1234,\n    \"webhook_url\": \"https://hooks.example.com/webhook\",\n    \"subscriptions\": [],\n    \"disabled\": false,\n    \"created_by\": 5678\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Whoami",
+      "item": [
+        {
+          "name": "Get Whoami Information",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.affinity.co/auth/whoami",
+              "protocol": "https",
+              "host": [
+                "api",
+                "affinity",
+                "co"
+              ],
+              "path": [
+                "auth",
+                "whoami"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Retrieve User and Instance Information",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://api.affinity.co/auth/whoami",
+                  "protocol": "https",
+                  "host": [
+                    "api",
+                    "affinity",
+                    "co"
+                  ],
+                  "path": [
+                    "auth",
+                    "whoami"
+                  ]
+                }
+              },
+              "status": "200 OK",
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"tenant\": {\n        \"id\": 1,\n        \"name\": \"Affinity\",\n        \"subdomain\": \"affinity\"\n    },\n    \"user\": {\n        \"id\": 2,\n        \"firstName\": \"Person\",\n        \"lastName\": \"Example\",\n        \"email\": \"redacted@example.com\"\n    },\n    \"grant\": {\n        \"type\": \"api_key\",\n        \"scope\": \"external_api\",\n        \"createdAt\": \"2020-12-14T09:00:00.000-05:00\"\n    }\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "kcKRkfPuoY1IOyck8WXc6LJeWaOgv2BRgIuH0JGGN1M",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}
