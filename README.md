@@ -87,6 +87,15 @@ affinity field list --entity-type person --format table
 affinity field create --data '{"name":"Priority","value_type":"dropdown"}'
 affinity field-value list --person-id 38706
 affinity field-value update 20406836 --value '"High"'
+
+# Notes (person/org/opportunity perspective)
+affinity note list --person-id 38708 --page-size 25
+affinity note list --organization-id 64779194 --all --detailed
+affinity note list --opportunity-id 117 --full
+affinity note get 22984 --full
+affinity note create --data '{"content":"Met with team","type":0,"person_ids":[38708]}'
+affinity note update 22984 --data '{"content":"Updated note content"}'
+affinity note delete 22984
 ```
 
 ## Output Modes
@@ -111,6 +120,16 @@ Reference enrichment behavior:
 - returns `{ "pagination": { ... }, "data": [...] }`
 - includes cursor metadata (`next_page_token`, `has_more`, `pages_fetched`) and counts
 - `--format table|csv` prints flattened rows (`entity_name` + expanded list field columns)
+
+`note list` detail and pagination behavior:
+
+- default (`raw`): API-native note payloads
+- `--detailed`: resolves linked references (`persons`, `associated_persons`, `interaction_persons`, `mentioned_persons`, `organizations`, `opportunities`)
+- `--full`: includes `--detailed` plus `interaction` and `parent_note` summaries
+- `note list` truncates `content` to the first `300` characters
+- `--compact`: keeps API-native IDs and skips resolver fan-out calls
+- `--format json`: returns `{ "pagination": { ... }, "data": [...] }`
+- `--format table|csv`: returns flattened note rows (no envelope)
 
 ## Search Behavior
 
@@ -173,7 +192,7 @@ affinity person get 97844218 --full
 - `entry` (legacy): `list`, `get`, `add`, `delete`
 - `field`: `list`, `create`, `delete`
 - `field-value`: `list`, `update`
-- `note`: `list`, `get`, `create`
+- `note`: `list`, `get`, `create`, `update`, `delete`
 - `reminder`: `list`, `get`, `create`
 - `interaction`: `list`, `get`, `create`
 

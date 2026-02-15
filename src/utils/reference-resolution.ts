@@ -170,6 +170,79 @@ export const resolveIdList = async (
   return ids.map((id) => resolvedById.get(id) ?? { id });
 };
 
+export const resolveRecordForeignKeyField = async (
+  record: RecordValue,
+  options: {
+    idField: string;
+    targetField: string;
+    resolveById: ResolveEntityById;
+    buildSummary: BuildSummary;
+    dropSourceField?: boolean;
+  }
+): Promise<RecordValue> => {
+  const id = toId(record[options.idField]);
+  if (!id) return record;
+
+  let target: RecordValue;
+  try {
+    target = options.buildSummary(await options.resolveById(id), id);
+  } catch {
+    target = { id };
+  }
+
+  if (options.dropSourceField === false) {
+    return {
+      ...record,
+      [options.targetField]: target
+    };
+  }
+
+  const { [options.idField]: _removedId, ...rest } = record;
+  return {
+    ...rest,
+    [options.targetField]: target
+  };
+};
+
+export const resolveRecordsForeignKeyField = async (
+  records: RecordValue[],
+  options: {
+    idField: string;
+    targetField: string;
+    resolveById: ResolveEntityById;
+    buildSummary: BuildSummary;
+    dropSourceField?: boolean;
+  }
+): Promise<RecordValue[]> => {
+  const ids = Array.from(
+    new Set(
+      records
+        .map((record) => toId(record[options.idField]))
+        .filter((id): id is string => typeof id === 'string')
+    )
+  );
+  if (ids.length === 0) return records;
+
+  const resolvedById = await resolveByIds(ids, options.resolveById, options.buildSummary);
+  return records.map((record) => {
+    const id = toId(record[options.idField]);
+    if (!id) return record;
+
+    const target = resolvedById.get(id) ?? { id };
+    if (options.dropSourceField === false) {
+      return {
+        ...record,
+        [options.targetField]: target
+      };
+    }
+    const { [options.idField]: _removedId, ...rest } = record;
+    return {
+      ...rest,
+      [options.targetField]: target
+    };
+  });
+};
+
 export const resolveRecordIdField = async (
   record: RecordValue,
   options: {

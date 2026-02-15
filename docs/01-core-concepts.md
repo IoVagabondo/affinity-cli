@@ -34,6 +34,12 @@ Relationship strengths:
 - Currently exposed via `person get --full`.
 - No separate `relationship-strengths` top-level command.
 
+Note detail levels:
+
+- `note get <id>` / `note list ...`: raw API payload by default.
+- `--detailed`: resolves linked person/org/opportunity references.
+- `--full`: `--detailed` plus linked interaction and parent-note summaries.
+
 Person get detail levels:
 
 - `person get <id>`: minimal single API call (raw person payload, no resolver fan-out).

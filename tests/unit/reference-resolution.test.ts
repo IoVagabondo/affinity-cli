@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import {
+  resolveRecordForeignKeyField,
   resolveRecordIdField,
+  resolveRecordsForeignKeyField,
   resolveRecordsIdField,
   summarizeOpportunityResolvedReference,
   summarizeOpportunityReference,
@@ -163,6 +165,51 @@ describe('reference-resolution', () => {
           organization_ids: ['291792102']
         }
       ]
+    });
+  });
+
+  it('resolves scalar foreign keys once across records', async () => {
+    const calls: string[] = [];
+    const records = [{ interaction_id: 101 }, { interaction_id: '101' }, { interaction_id: 202 }];
+
+    const resolved = await resolveRecordsForeignKeyField(records, {
+      idField: 'interaction_id',
+      targetField: 'interaction',
+      resolveById: async (id) => {
+        calls.push(id);
+        return { id, type: Number.parseInt(id, 10) };
+      },
+      buildSummary: (payload, fallbackId) => ({
+        id: typeof payload.id === 'string' ? payload.id : fallbackId
+      }),
+      dropSourceField: false
+    });
+
+    expect(calls.sort()).toEqual(['101', '202']);
+    expect(resolved).toEqual([
+      { interaction_id: 101, interaction: { id: '101' } },
+      { interaction_id: '101', interaction: { id: '101' } },
+      { interaction_id: 202, interaction: { id: '202' } }
+    ]);
+  });
+
+  it('falls back to id-only value for scalar foreign key failures', async () => {
+    const resolved = await resolveRecordForeignKeyField(
+      { parent_id: 55 },
+      {
+        idField: 'parent_id',
+        targetField: 'parent_note',
+        resolveById: async () => {
+          throw new Error('missing');
+        },
+        buildSummary: () => ({ id: 'unreachable' }),
+        dropSourceField: false
+      }
+    );
+
+    expect(resolved).toEqual({
+      parent_id: 55,
+      parent_note: { id: '55' }
     });
   });
 });

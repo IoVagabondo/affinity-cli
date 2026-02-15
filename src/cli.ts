@@ -84,13 +84,22 @@ registerOrganizationCommands(
 registerOpportunityCommands(program, opportunitiesEndpoint, resolvePersonById);
 const entriesEndpoint = new EntriesEndpoint(client);
 const fieldValuesEndpoint = new FieldValuesEndpoint(client);
+const notesEndpoint = new NotesEndpoint(client);
+const interactionsEndpoint = new InteractionsEndpoint(client);
 registerListCommands(program, listsEndpoint, entriesEndpoint, personsEndpoint, fieldValuesEndpoint);
 registerEntryCommands(program, entriesEndpoint);
 registerFieldCommands(program, new FieldsEndpoint(client));
 registerFieldValueCommands(program, fieldValuesEndpoint);
-registerNoteCommands(program, new NotesEndpoint(client));
+registerNoteCommands(
+  program,
+  notesEndpoint,
+  resolvePersonById,
+  resolveOrganizationById,
+  resolveOpportunityById,
+  async (id) => interactionsEndpoint.get(id) as Promise<Record<string, unknown>>
+);
 registerReminderCommands(program, new RemindersEndpoint(client));
-registerInteractionCommands(program, new InteractionsEndpoint(client));
+registerInteractionCommands(program, interactionsEndpoint);
 
 program.parseAsync().catch((error) => {
   const verbose = process.argv.includes('--verbose');

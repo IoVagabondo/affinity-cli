@@ -73,7 +73,26 @@ export const listEntrySchema = z
   })
   .passthrough();
 
-export const noteSchema = z.object({ id: idSchema }).passthrough();
+export const noteSchema = z
+  .object({
+    id: idSchema,
+    creator_id: idSchema.optional().nullable(),
+    person_ids: z.array(idSchema).optional(),
+    associated_person_ids: z.array(idSchema).optional(),
+    interaction_person_ids: z.array(idSchema).optional(),
+    interaction_id: idSchema.optional().nullable(),
+    interaction_type: z.union([z.string(), z.number()]).optional().nullable(),
+    is_meeting: z.boolean().optional(),
+    mentioned_person_ids: z.array(idSchema).optional(),
+    organization_ids: z.array(idSchema).optional(),
+    opportunity_ids: z.array(idSchema).optional(),
+    parent_id: idSchema.optional().nullable(),
+    content: z.string().optional(),
+    type: z.union([z.string(), z.number()]).optional(),
+    created_at: z.string().optional().nullable(),
+    updated_at: z.string().optional().nullable()
+  })
+  .passthrough();
 export const reminderSchema = z.object({ id: idSchema }).passthrough();
 export const interactionSchema = z.object({ id: idSchema }).passthrough();
 
