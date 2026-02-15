@@ -8,3 +8,6 @@ coverage/
 AGENTS.md
 TODO.md
 CHANGELOG.md
+
+*.tgz
+internal_docs/

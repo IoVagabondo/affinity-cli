@@ -15,15 +15,25 @@
 
 ## Installation
 
+Published package (global install):
+
+```bash
+npm install -g affinity-cli
+affinity --help
+```
+
+Without install:
+
+```bash
+npx affinity-cli --help
+```
+
+Local development:
+
 ```bash
 npm install
 npm run build
 npm link
-```
-
-Then run:
-
-```bash
 affinity --help
 ```
 

@@ -15,7 +15,7 @@
   },
   "homepage": "https://github.com/IoVagabondo/affinity-cli#readme",
   "bin": {
-    "affinity": "./dist/cli.js"
+    "affinity": "dist/cli.js"
   },
   "files": [
     "dist",
