@@ -43,11 +43,30 @@ export const toErrorMessage = (
 ): string => {
   if (error instanceof AffinityApiError) {
     const includePayload = Boolean(options?.verbose);
+
+    // Build structured error message
+    let message = `Error: ${error.message}`;
+
+    // Add common resolution hints based on status code
+    if (error.status === 401) {
+      message += '\n  Hint: Check your API key with: affinity auth whoami';
+    } else if (error.status === 403) {
+      message += '\n  Hint: Your API key may not have permission for this operation';
+    } else if (error.status === 404) {
+      message += '\n  Hint: The requested resource was not found. Verify the ID is correct.';
+    } else if (error.status === 429) {
+      message += '\n  Hint: Rate limit exceeded. Check limits with: affinity auth rate-limit';
+    } else if (error.status && error.status >= 500) {
+      message += '\n  Hint: Affinity API server error. Try again in a moment.';
+    }
+
+    // Add verbose payload if requested
     const payload =
       includePayload && error.payload
-        ? ` payload=${JSON.stringify(redactSensitive(error.payload))}`
+        ? `\n  Payload: ${JSON.stringify(redactSensitive(error.payload), null, 2)}`
         : '';
-    return `${error.message}${payload}`;
+
+    return `${message}${payload}`;
   }
   if (error instanceof Error) return error.message;
   return String(error);

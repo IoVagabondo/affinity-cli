@@ -202,6 +202,27 @@ Relationship strengths note:
 - Use `affinity person get <person_id> --full` to include `relationship_strengths`.
 - `--full` implies `--detailed`.
 
+## Documentation
+
+Detailed guides available in the `/docs` directory:
+
+- [Core Concepts](./docs/01-core-concepts.md) - Entity types, pagination, detail levels
+- [Authentication](./docs/02-auth.md) - Authentication methods and setup
+- [API Fundamentals](./docs/03-api-fundamentals.md) - Basic API concepts
+- [Lists Endpoint](./docs/04-lists-endpoint.md) - Working with lists
+- [Persons Endpoint](./docs/05-persons-endpoint.md) - Person operations
+- [Organizations Endpoint](./docs/06-organizations-endpoint.md) - Organization operations
+- [Notes Endpoint](./docs/07-notes-endpoint.md) - Note operations
+- [Rate Limiting](./docs/08-rate-limiting.md) - **Rate limits, best practices, and error handling**
+
+Example scripts available in `/examples`:
+
+- [Basic Workflow](./examples/01-basic-workflow.sh) - Getting started
+- [List Management](./examples/02-list-management.sh) - Managing lists and entries
+- [Advanced Search](./examples/03-advanced-search.sh) - Filtering and pagination
+- [Batch Operations](./examples/04-batch-operations.sh) - Bulk operations with rate limiting
+- [Agent Integration (Python)](./examples/05-agent-integration.py) - Programmatic CLI usage
+
 ## Development
 
 ```bash

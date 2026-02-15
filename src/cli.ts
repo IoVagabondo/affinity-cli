@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
 import dotenv from 'dotenv';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 import { AffinityClient } from './api/client';
 import { AuthEndpoint } from './api/endpoints/auth';
 import { EntriesEndpoint } from './api/endpoints/entries';
@@ -29,11 +31,16 @@ import { toErrorMessage } from './utils/errors';
 
 dotenv.config({ quiet: true });
 
+// Read version from package.json
+const packageJson = JSON.parse(readFileSync(join(__dirname, '../package.json'), 'utf-8')) as {
+  version: string;
+};
+
 const program = new Command();
 program
   .name('affinity')
   .description('Production-grade CLI for Affinity CRM v1 API')
-  .version('0.1.0')
+  .version(packageJson.version)
   .option('--api-key <key>', 'Affinity API key')
   .option('--auth-mode <mode>', 'Auth mode basic|bearer', 'basic')
   .option('--format <format>', 'Output format json|table|csv', 'json')

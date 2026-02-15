@@ -18,7 +18,9 @@ export class AffinityApiError extends Error {
     message: string,
     readonly status?: number,
     readonly payload?: unknown,
-    readonly requestId?: string
+    readonly requestId?: string,
+    readonly path?: string,
+    readonly method?: string
   ) {
     super(message);
     this.name = 'AffinityApiError';
@@ -78,12 +80,19 @@ export class AffinityClient {
         }
 
         const requestId = error.response?.headers?.['x-request-id'] as string | undefined;
-        throw new AffinityApiError(
-          `Affinity API request failed${status ? ` (${status})` : ''}`,
-          status,
-          error.response?.data,
-          requestId
-        );
+        const method = cfg.method?.toUpperCase() ?? 'UNKNOWN';
+        const path = cfg.url ?? 'unknown path';
+
+        // Build detailed error message
+        let message = `Affinity API request failed: ${method} ${path}`;
+        if (status) {
+          message += ` (${status})`;
+        }
+        if (requestId) {
+          message += ` [Request ID: ${requestId}]`;
+        }
+
+        throw new AffinityApiError(message, status, error.response?.data, requestId, path, method);
       }
     );
   }
